@@ -187,7 +187,7 @@ export function activate(context: vscode.ExtensionContext) {
 		commitArray.push(first);
 
 		if (body) {
-			commitArray.push(body)
+			commitArray.push(body);
 		}
 
 		if (footer) {
