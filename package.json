@@ -32,15 +32,15 @@
         "command": "simple-commit.commit",
         "title": "Simple Commit: Commit staged files."
       }
-    ]
-  },
-  "configuration": {
-    "title": "Simple Commit",
-    "properties": {
-      "simpleCommit.scopes": {
-        "type": "array",
-        "default": [],
-        "description": "Saved Scopes"
+    ],
+    "configuration": {
+      "title": "Simple Commit",
+      "properties": {
+        "simpleCommit.scopes": {
+          "type": "array",
+          "default": [],
+          "description": "Saved Scopes"
+        }
       }
     }
   },
