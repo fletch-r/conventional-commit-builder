@@ -75,8 +75,43 @@ export function activate(context: vscode.ExtensionContext) {
 		const finalCommit = `${type?.label}${scope ? `(${scope})` : ''}: ${ticketNumber} - ${description}\n\n${body ? body : ''}\n\n${footer ? footer : ''}`;
 
 		console.log(finalCommit);
+
+		const commitArray = [];
+
+		const t = type?.label;
+		const s = scope ? `(${scope})` : '';
+		const tn = ticketNumber ? `${ticketNumber} - ` : '';
+		const d = description;
+		const first = `${t}${s}: ${tn}${d}`;
+		// commitArray.push('-m');
+		commitArray.push(`"${first}"`);
+
+		if (body) {
+			// commitArray.push('-m');
+			commitArray.push(`"${body}"`)
+		}
+
+		if (footer) {
+			// commitArray.push('-m');
+			commitArray.push(`"${footer}"`);
+		}
+
+		console.log(commitArray.join('\n\n'));
+
+		const gitExtension = vscode.extensions.getExtension('vscode.git')?.exports;
+		const repo = gitExtension.getAPI(1).repositories[0];
+
+		console.log('repo', repo);
+		console.log('working tree', repo.state.workingTreeChanges);
+
+		// if (repo.state.workingTreeChanges.length === 0) {
+		// 	vscode.window.showInformationMessage('No changes to commit');
+		// 	return;
+		// }
+
+		repo.commit(commitArray.join('\n\n'));
         
-		vscode.commands.executeCommand('git.commit', ['-m', finalCommit]);
+		await vscode.commands.executeCommand('git.commit', commitArray);
 
 		vscode.window.showInformationMessage(`Commit made.\n\n${finalCommit}`);
     });
