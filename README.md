@@ -1,20 +1,6 @@
-# simple-commit README
+# Simple Commit
 
-This is the README for your extension "simple-commit". After writing up a brief description, we recommend including the following sections.
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This extension will prompt you for the commit type, scope, issue/ticket number, description, body and footer.
 
 ## Extension Settings
 
@@ -24,28 +10,12 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `simpleCommit.enable`: Enable/disable this extension.
+* `simpleCommit.scopes`: Set to `[]`.
 
-## Known Issues
+### 0.0.1
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+First release.
 
 ---
 
