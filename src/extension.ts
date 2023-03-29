@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 			{ label: 'None', description: 'No scope.' },
 		];
 
-		let workspaceConfig = vscode.workspace.getConfiguration('simpleCommit');
+		const workspaceConfig = vscode.workspace.getConfiguration('simpleCommit');
 		const workspaceScopes: string[] = workspaceConfig.get('scopes') as unknown as string[];
 		// if (workspaceScopes === undefined) {
 		// 	const updated = await workspaceConfig.update('scopes', [], vscode.ConfigurationTarget.Workspace)
@@ -57,13 +57,15 @@ export function activate(context: vscode.ExtensionContext) {
 		if (scopeType?.label === 'New Scope') {
 			console.log('New Scope');
 			await vscode.window.showInputBox({ prompt: 'Enter new scope name.' })
-				.then((newScope) => {
+				.then(async (newScope) => {
 					if (newScope) {
-						// workspaceScopes.push(newScope);
-						workspaceConfig.update('scopes', [newScope], vscode.ConfigurationTarget.Global)
-							.then(() => {
+						await workspaceConfig.update('scopes', [newScope], vscode.ConfigurationTarget.Workspace)
+							.then((res) => {
 								scope = newScope;
+								console.log('Update Res', res);
+								console.log('New Scope', newScope)
 							});
+						scope = newScope;
 					}
 				});
 			console.log('workspaceScopes', workspaceScopes);
@@ -72,9 +74,6 @@ export function activate(context: vscode.ExtensionContext) {
         description = await vscode.window.showInputBox({ prompt: 'Enter a short description of the commit' });
         body = await vscode.window.showInputBox({ prompt: 'Enter a description of the commit' });
         footer = await vscode.window.showInputBox({ prompt: 'Enter a footer' });
-		const finalCommit = `${type?.label}${scope ? `(${scope})` : ''}: ${ticketNumber} - ${description}\n\n${body ? body : ''}\n\n${footer ? footer : ''}`;
-
-		console.log(finalCommit);
 
 		const commitArray = [];
 
@@ -83,37 +82,22 @@ export function activate(context: vscode.ExtensionContext) {
 		const tn = ticketNumber ? `${ticketNumber} - ` : '';
 		const d = description;
 		const first = `${t}${s}: ${tn}${d}`;
-		// commitArray.push('-m');
-		commitArray.push(`"${first}"`);
+		commitArray.push(first);
 
 		if (body) {
-			// commitArray.push('-m');
-			commitArray.push(`"${body}"`)
+			commitArray.push(body)
 		}
 
 		if (footer) {
-			// commitArray.push('-m');
-			commitArray.push(`"${footer}"`);
+			commitArray.push(footer);
 		}
-
-		console.log(commitArray.join('\n\n'));
 
 		const gitExtension = vscode.extensions.getExtension('vscode.git')?.exports;
 		const repo = gitExtension.getAPI(1).repositories[0];
 
-		console.log('repo', repo);
-		console.log('working tree', repo.state.workingTreeChanges);
-
-		// if (repo.state.workingTreeChanges.length === 0) {
-		// 	vscode.window.showInformationMessage('No changes to commit');
-		// 	return;
-		// }
-
 		repo.commit(commitArray.join('\n\n'));
-        
-		await vscode.commands.executeCommand('git.commit', commitArray);
 
-		vscode.window.showInformationMessage(`Commit made.\n\n${finalCommit}`);
+		vscode.window.showInformationMessage(`Commit made.\n\n${commitArray.join('\n\n')}`);
     });
 
     context.subscriptions.push(disposable);
