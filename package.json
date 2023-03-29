@@ -1,5 +1,6 @@
 {
   "name": "simple-commit",
+  "icon": "assets/icon.png",
   "displayName": "Simple Commit",
   "description": "Simple Commit helps you write and format your commit messages. You can also customize the position of prompts. e.g. Ticket number prompt at the start of short description or within the body",
   "publisher": "0xATHERIS",
