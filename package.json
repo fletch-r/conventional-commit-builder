@@ -35,12 +35,12 @@
     ]
   },
   "configuration": {
-    "title": "Simple Commit",
+    "title": "simpleCommit",
     "properties": {
       "simpleCommit.scopes": {
         "type": "array",
         "default": [],
-        "description": "Saved Scopes"
+        "description": "Testing"
       }
     }
   },
