@@ -2,24 +2,86 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    let disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+		let scope = null;
+		let ticketNumber = null;
+		let description = null;
+		let body = null;
+		let footer = null;
+		const type = await vscode.window.showQuickPick(
+			[
+				{ label: 'fix', description: 'Bug fix' },
+				{ label: 'feat', description: 'New feature' },
+				{ label: 'build' },
+				{ label: 'style' },
+				{ label: 'chore' },
+				{ label: 'refactor' },
+				{ label: 'ci' },
+				{ label: 'test' },
+				{ label: 'docs' },
+			],
+			{ placeHolder: 'Select the type for your commit.' }
+		);
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "simple-commit" is now active!');
+		const scopeOptions = [
+			{ label: 'None', description: 'No scope.' },
+		];
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('simple-commit.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Simple Commit!');
-	});
+		let workspaceConfig = vscode.workspace.getConfiguration('simpleCommit');
+		const workspaceScopes: string[] = workspaceConfig.get('scopes') as unknown as string[];
+		// if (workspaceScopes === undefined) {
+		// 	const updated = await workspaceConfig.update('scopes', [], vscode.ConfigurationTarget.Workspace)
+		// 		.then((res) => console.log(res));
+		// 	console.log(updated);
+		// }
+		console.log('workspaceScopes', workspaceScopes);
+		if (workspaceScopes) {
+			const formattedScopes = workspaceScopes.map((str) => ({
+				label: str,
+				description: '',
+				detail: 'From saved scopes.'
+			}));
+			for (let i = 0; i < formattedScopes.length; i++) {
+				const formattedScope = formattedScopes[i];
+				scopeOptions.push(formattedScope);
+			}
+		}
+		scopeOptions.push({ label: 'New Scope', description: 'Add a new scope to your workspace to reuse in the future.' });
+		scopeOptions.push({ label: 'Once Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
 
-	context.subscriptions.push(disposable);
+        const scopeType = await vscode.window.showQuickPick(
+			scopeOptions,
+			{ placeHolder: 'Select the scope for your commit.' }
+		);
+		if (scopeType?.label === 'New Scope') {
+			console.log('New Scope');
+			await vscode.window.showInputBox({ prompt: 'Enter new scope name.' })
+				.then((newScope) => {
+					if (newScope) {
+						// workspaceScopes.push(newScope);
+						workspaceConfig.update('scopes', [newScope], vscode.ConfigurationTarget.Global)
+							.then(() => {
+								scope = newScope;
+							});
+					}
+				});
+			console.log('workspaceScopes', workspaceScopes);
+		}
+        ticketNumber = await vscode.window.showInputBox({ prompt: 'Enter issue number' });
+        description = await vscode.window.showInputBox({ prompt: 'Enter a short description of the commit' });
+        body = await vscode.window.showInputBox({ prompt: 'Enter a description of the commit' });
+        footer = await vscode.window.showInputBox({ prompt: 'Enter a footer' });
+		const finalCommit = `${type?.label}${scope ? `(${scope})` : ''}: ${ticketNumber} - ${description}\n\n${body ? body : ''}\n\n${footer ? footer : ''}`;
+
+		console.log(finalCommit);
+        
+		vscode.commands.executeCommand('git.commit', ['-m', finalCommit]);
+
+		vscode.window.showInformationMessage(`Commit made.\n\n${finalCommit}`);
+    });
+
+    context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated

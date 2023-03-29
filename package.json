@@ -14,10 +14,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "simple-commit.helloWorld",
-        "title": "Hello World"
+        "command": "simple-commit.commit",
+        "title": "Simple Commit: Commit staged files."
       }
     ]
+  },
+  "configuration": {
+    "title": "simpleCommit",
+    "properties": {
+      "simpleCommit.scopes": {
+        "type": "array",
+        "default": [],
+        "description": "Testing"
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
