@@ -1,12 +1,26 @@
 {
   "name": "simple-commit",
   "displayName": "Simple Commit",
-  "description": "Simple Commit helps you write and formatt your commit messages. You can also customise the position of prompts. e.g. Ticket number prompt at the start of short description or within the body",
+  "description": "Simple Commit helps you write and format your commit messages. You can also customize the position of prompts. e.g. Ticket number prompt at the start of short description or within the body",
   "publisher": "0xATHERIS",
+  "author": "0xATHERIS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xATHERIS/simple-commit.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0xATHERIS/simple-commit/issues"
+  },
+  "homepage": "https://github.com/0xATHERIS/simple-commit",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.76.0"
   },
+  "keywords": [
+    "git",
+    "commit"
+  ],
   "categories": [
     "Other"
   ],
