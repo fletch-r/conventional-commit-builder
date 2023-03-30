@@ -4,16 +4,6 @@ import * as vscode from 'vscode';
 
 const TOTAL_STEPS = 6;
 
-const confirmButton: vscode.QuickInputButton = {
-	iconPath: new vscode.ThemeIcon('arrow-right'),
-	tooltip: 'confirm',
-};
-
-const backButton: vscode.QuickInputButton = {
-	iconPath: new vscode.ThemeIcon('arrow-left'),
-	tooltip: 'previous',
-};
-
 function createQuickPick(
 	title: string,
 	placeholder: string,
@@ -34,12 +24,6 @@ function createQuickPick(
 		quickPick.totalSteps = TOTAL_STEPS;
 		quickPick.ignoreFocusOut;
 	
-		// quickPick.buttons = [
-		//     {
-		//         iconPath: new vscode.ThemeIcon("arrow-left"),
-		//         tooltip: "Previous",
-		//     }
-		// ];
 		quickPick.buttons = [
 			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
 		];
@@ -51,23 +35,10 @@ function createQuickPick(
 			}
 		});
 		quickPick.onDidTriggerButton((e) => {
-			if (e === confirmButton) {
+			if (e === vscode.QuickInputButtons.Back) {
+				quickPick.step = step - 1;
 				resolve(quickPick.value);
 			}
-	  
-			if (e === vscode.QuickInputButtons.Back) {
-				console.log({
-					button: e,
-					value: quickPick.value,
-					activeItems: quickPick.activeItems,
-				});
-			resolve({
-				button: e,
-				value: quickPick.value,
-				activeItems: quickPick.activeItems,
-			  });
-			}
-	
 			resolve(quickPick.value);
 		});
 	
@@ -80,15 +51,14 @@ async function typeQuickPick() {
 		'Type',
 		'Select a type for your commit.',
 		[
-			{ label: 'fix', detail: 'Bug fix' },
-			{ label: 'feat', detail: "Add a new feature" },
-			{ label: 'build' },
-			{ label: 'style' },
-			{ label: 'chore' },
-			{ label: 'refactor' },
-			{ label: 'ci' },
-			{ label: 'test', detail: "Add or update tests" },
-			{ label: 'docs' },
+			{ label: 'feat', description: 'Feature', detail: "A new feature" },
+			{ label: 'fix', description: 'Bug Fix', detail: 'A bug fix' },
+			{ label: 'style', description: 'Styling', detail: 'Code styling. (formatting, missing semicolons, etc)' },
+			{ label: 'chore', description: 'Chore', detail: 'Changes that do not modify the code' },
+			{ label: 'docs', description: 'Documentation', detail: 'Documentation changes' },
+			{ label: 'test', description: 'Test', detail: "Create or update tests" },
+			{ label: 'refactor', description: 'Code Refactor', detail: 'Code changes that do not change functionality' },
+			{ label: 'build', description: 'Build', detail: 'Changes that affect the build system or dependencies. e.g. NPM' },
 		],
 		1,
 	);
@@ -120,8 +90,24 @@ async function scopeQuickPick(workspaceScopes: string[]) {
 	);
 }
 
+function createStatusBarItem(context: vscode.ExtensionContext) {
+    // register a command that is invoked when the status bar
+    // item is clicked.
+    const myCommandId = 'simple-commit.commit';
+    // create a new status bar item that we can now manage
+	const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+    item.command = myCommandId;
+
+    context.subscriptions.push(item);
+
+	item.text = '$(git-commit) Run Simple Commit';
+	item.tooltip = 'Run Run Simple Commit';
+	item.show();
+}
+
 export function activate(context: vscode.ExtensionContext) {
-    let disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+	createStatusBarItem(context);
+  	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
 		let type = null;
 		let scope = null;
 		let ticketNumber = null;
@@ -147,11 +133,23 @@ export function activate(context: vscode.ExtensionContext) {
 					await workspaceConfig.update('scopes', [newScope], vscode.ConfigurationTarget.Workspace)
 						.then(() => {
 							if (workspaceScopes) {
-								scope = [newScope, ...workspaceScopes];
+								scope = [...workspaceScopes, newScope];
 							} else {
 								scope = newScope;
 							}
 						});
+					scope = newScope;
+				}
+			});
+		}
+		if (scopeType === 'Once Time Scope') {
+			await vscode.window.showInputBox({
+				prompt: 'Enter scope name.',
+				title: 'One Time Scope',
+				placeHolder: 'Enter the scope name.',
+			})
+			.then(async (newScope) => {
+				if (newScope) {
 					scope = newScope;
 				}
 			});
