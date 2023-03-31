@@ -1,122 +1,25 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import typeQuickPick from './steps/step_1_type/typeQuickPick';
+import scopeQuickPick from './steps/step_2_scope/scopeQuickPick';
+import emojiQuickPick from './steps/step_3_emoji/emojiQuickPick';
 
-const TOTAL_STEPS = 6;
-
-function createQuickPick(
-	title: string,
-	placeholder: string,
-	items: { label: string, detail?: string, description?: string }[],
-	step: number,
-) {
-	return new Promise((resolve, reject) => {
-		let current = 0;
-	
-		const quickPick = vscode.window.createQuickPick();
-		quickPick.title = title;
-		quickPick.placeholder = placeholder;
-	
-		quickPick.items = items;
-		quickPick.activeItems = [quickPick.items[current]];
-	
-		quickPick.step = step;
-		quickPick.totalSteps = TOTAL_STEPS;
-		quickPick.ignoreFocusOut;
-	
-		quickPick.buttons = [
-			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
-		];
-	
-		quickPick.onDidChangeSelection((selection) => {
-			console.log(selection);
-			if (selection[0]) {
-				resolve(selection[0].label);
-			}
-		});
-		quickPick.onDidTriggerButton((e) => {
-			if (e === vscode.QuickInputButtons.Back) {
-				quickPick.step = step - 1;
-				resolve(quickPick.value);
-			}
-			resolve(quickPick.value);
-		});
-	
-		quickPick.show();
-	});
-}
-
-async function typeQuickPick() {
-	return await createQuickPick(
-		'Type',
-		'Select a type for your commit.',
-		[
-			{ label: 'feat', description: 'Feature', detail: "A new feature" },
-			{ label: 'fix', description: 'Bug Fix', detail: 'A bug fix' },
-			{ label: 'style', description: 'Styling', detail: 'Code styling. (formatting, missing semicolons, etc)' },
-			{ label: 'chore', description: 'Chore', detail: 'Changes that do not modify the code' },
-			{ label: 'docs', description: 'Documentation', detail: 'Documentation changes' },
-			{ label: 'test', description: 'Test', detail: "Create or update tests" },
-			{ label: 'refactor', description: 'Code Refactor', detail: 'Code changes that do not change functionality' },
-			{ label: 'build', description: 'Build', detail: 'Changes that affect the build system or dependencies. e.g. NPM' },
-		],
-		1,
-	);
-}
-async function scopeQuickPick(workspaceScopes: string[]) {
-	const scopeOptions = [
-		{ label: 'None', description: 'No scope.' },
-	];
-
-	if (workspaceScopes) {
-		const formattedScopes = workspaceScopes.map((str) => ({
-			label: str,
-			description: '',
-			detail: 'From saved scopes.'
-		}));
-		for (let i = 0; i < formattedScopes.length; i++) {
-			const formattedScope = formattedScopes[i];
-			scopeOptions.push(formattedScope);
-		}
-	}
-	scopeOptions.push({ label: 'New Scope', description: 'Add a new scope to your workspace to reuse in the future.' });
-	scopeOptions.push({ label: 'Once Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
-
-	return await createQuickPick(
-		'Scope',
-		'Select the scope for your commit.',
-		scopeOptions,
-		2,
-	);
-}
-
-function createStatusBarItem(context: vscode.ExtensionContext) {
-    // register a command that is invoked when the status bar
-    // item is clicked.
-    const myCommandId = 'simple-commit.commit';
-    // create a new status bar item that we can now manage
-	const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-    item.command = myCommandId;
-
-    context.subscriptions.push(item);
-
-	item.text = '$(git-commit) Run Simple Commit';
-	item.tooltip = 'Run Run Simple Commit';
-	item.show();
-}
+// Example commit
+/**
+ * fix(PLP): 🐛 BE-2101 - Added correct response type
+ * 
+ * The response type was set to the wrong type so I corrected it.
+ * 
+ * BREAKING CHANGE: The API changed it's response type.
+ */
 
 export function activate(context: vscode.ExtensionContext) {
-	createStatusBarItem(context);
   	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+		// === TYPE ===
 		let type = null;
-		let scope = null;
-		let ticketNumber = null;
-		let description = null;
-		let body = null;
-		let footer = null;
-		
 		type = await typeQuickPick();
 
+		// === SCOPE ===
+		let scope = null;
 		const workspaceConfig = vscode.workspace.getConfiguration('simpleCommit');
 		const workspaceScopes: string[] = workspaceConfig.get('scopes') as unknown as string[];
 
@@ -130,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 			})
 			.then(async (newScope) => {
 				if (newScope) {
-					await workspaceConfig.update('scopes', [newScope], vscode.ConfigurationTarget.Workspace)
+					await workspaceConfig.update('scopes', [...workspaceScopes, newScope], vscode.ConfigurationTarget.Workspace)
 						.then(() => {
 							if (workspaceScopes) {
 								scope = [...workspaceScopes, newScope];
@@ -154,34 +57,50 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			});
 		}
+
+		// === EMOJI ===
+		const emoji = await emojiQuickPick();
+
+		// === ISSUE/TICKET NUMBER ===
+		let ticketNumber = null;
         ticketNumber = await vscode.window.showInputBox({
 			prompt: 'Enter issue or ticket number',
 			title: 'Issue/Ticket Number',
 			placeHolder: 'Enter you issue or ticket number.',
 		});
+
+		// === DESCRIPTION ===
+		let description = null;
         description = await vscode.window.showInputBox({
 			prompt: 'Enter a short description of this commit.',
 			title: 'Description',
 			placeHolder: 'Enter a short description of this commit.',
 		});
+		
+		// === BODY ===
+		let body = null;
         body = await vscode.window.showInputBox({
 			prompt: 'Enter a detailed description of this commit.',
 			title: 'Body',
 			placeHolder: 'Enter a detailed description of this commit.',
 		});
+
+		// === FOOTER ===
+		let footer = null;
         footer = await vscode.window.showInputBox({
 			prompt: 'Enter a footer',
 			title: 'Footer',
 			placeHolder: 'Enter remaining information such as Breaking Changes details about this commit.',
 		});
 
-		const commitArray = [];
+		// === BUILDING COMMIT MESSAGE ===
+		const commitArray: string[] = [];
 
 		const t = type;
 		const s = scope ? `(${scope})` : '';
 		const tn = ticketNumber ? `${ticketNumber} - ` : '';
 		const d = description;
-		const first = `${t}${s}: ${tn}${d}`;
+		const first = `${t}${s}: ${emoji} ${tn}${d}`;
 		commitArray.push(first);
 
 		if (body) {
@@ -192,12 +111,19 @@ export function activate(context: vscode.ExtensionContext) {
 			commitArray.push(footer);
 		}
 
+		// === COMMIT ===
 		const gitExtension = vscode.extensions.getExtension('vscode.git')?.exports;
 		const repo = gitExtension.getAPI(1).repositories[0];
 
-		repo.commit(commitArray.join('\n\n'));
-
-		vscode.window.showInformationMessage(`Commit made.\n\n${commitArray.join('\n\n')}`);
+		repo.commit(commitArray.join('\n\n'))
+			.then((res: unknown) => {
+				console.log(res);
+				vscode.window.showInformationMessage(`Commit made.\n\n${commitArray.join('\n\n')}`);
+			})
+			.catch((err: { message: string, stdout: string }) => {
+				console.error(err);
+				vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
+			});
     });
 
     context.subscriptions.push(disposable);
