@@ -31,7 +31,11 @@
     "commands": [
       {
         "command": "simple-commit.commit",
-        "title": "Simple Commit: Commit staged files."
+        "title": "Simple Commit: Commit staged files.",
+        "icon": {
+          "dark": "./assets/simple-commit-dark.svg",
+          "light": "./assets/simple-commit-black.svg"
+        }
       }
     ],
     "configuration": {
@@ -43,6 +47,15 @@
           "description": "Saved Scopes"
         }
       }
+    },
+    "menus": {
+      "scm/title": [
+        {
+          "when": "scmProvider == git",
+          "command": "simple-commit.commit",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
@@ -54,7 +67,8 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "deploy": "node prepare.js && vsce package"
   },
   "devDependencies": {
     "@types/vscode": "^1.76.0",
