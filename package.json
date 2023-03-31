@@ -14,7 +14,7 @@
     "url": "https://github.com/0xATHERIS/simple-commit/issues"
   },
   "homepage": "https://github.com/0xATHERIS/simple-commit",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -68,7 +68,7 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "deploy": "node gitmoji.js && vsce package"
+    "deploy": "node gitmoji.js && vsce package && vsce publish"
   },
   "devDependencies": {
     "@types/vscode": "^1.76.0",
