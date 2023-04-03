@@ -14,7 +14,7 @@ export default async function emojiQuickPick() {
     const emojis = gitmojis.gitmojis;
 
     const items = emojis.map((obj) => ({
-        label: obj.name,
+        label: obj.code,
         description: obj.emoji,
         detail: obj.description
     }));
