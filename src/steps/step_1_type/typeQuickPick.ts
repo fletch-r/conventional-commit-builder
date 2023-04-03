@@ -1,6 +1,6 @@
 import createQuickPick from '../../createQuickPick';
 
-export default async function typeQuickPick() {
+export default async function typeQuickPick(): Promise<string> {
 	return await createQuickPick(
 		'Type',
 		'Select a type for your commit.',
