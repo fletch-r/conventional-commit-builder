@@ -14,46 +14,59 @@ import emojiQuickPick from './steps/step_3_emoji/emojiQuickPick';
 
 export function activate(context: vscode.ExtensionContext) {
   	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+		const git_extension = vscode.extensions.getExtension('vscode.git')?.exports;
+		const repo = git_extension.getAPI(1).repositories[0];
+
+		// === AUTO-DETECT ISSUE NUMBER
+		const head = repo.state.HEAD;
+		const repo_name: string = head.name;
+		const possible_issue_number = repo_name.match(/^([^\d]*)(\d+)/);
+
+		let issue_number = '';
+		if (possible_issue_number) {
+			issue_number = possible_issue_number[0];
+		}
+
 		// === TYPE ===
 		let type = null;
 		type = await typeQuickPick();
 
 		// === SCOPE ===
 		let scope = null;
-		const workspaceConfig = vscode.workspace.getConfiguration('simpleCommit');
-		const workspaceScopes: string[] = workspaceConfig.get('scopes') as unknown as string[];
+		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
+		const workspace_scopes: string[] = workspace_config.get('scopes') as unknown as string[];
 
-		const scopeType = await scopeQuickPick(workspaceScopes);
+		const scope_type = await scopeQuickPick(workspace_scopes);
 
-		if (scopeType === 'New Scope') {
+		if (scope_type === 'New Scope') {
 			await vscode.window.showInputBox({
 				prompt: 'Enter new scope name.',
 				title: 'New Scope',
 				placeHolder: 'Enter a name for your new scope.',
 			})
-			.then(async (newScope) => {
-				if (newScope) {
-					await workspaceConfig.update('scopes', [...workspaceScopes, newScope], vscode.ConfigurationTarget.Workspace)
+			.then(async (new_scope) => {
+				if (new_scope) {
+					await workspace_config.update('scopes', [...workspace_scopes, new_scope], vscode.ConfigurationTarget.Workspace)
 						.then(() => {
-							if (workspaceScopes) {
-								scope = [...workspaceScopes, newScope];
+							if (workspace_scopes) {
+								scope = [...workspace_scopes, new_scope];
 							} else {
-								scope = newScope;
+								scope = new_scope;
 							}
 						});
-					scope = newScope;
+					scope = new_scope;
 				}
 			});
 		}
-		if (scopeType === 'Once Time Scope') {
+		if (scope_type === 'Once Time Scope') {
 			await vscode.window.showInputBox({
 				prompt: 'Enter scope name.',
 				title: 'One Time Scope',
 				placeHolder: 'Enter the scope name.',
 			})
-			.then(async (newScope) => {
-				if (newScope) {
-					scope = newScope;
+			.then(async (new_scope) => {
+				if (new_scope) {
+					scope = new_scope;
 				}
 			});
 		}
@@ -62,11 +75,12 @@ export function activate(context: vscode.ExtensionContext) {
 		const emoji = await emojiQuickPick();
 
 		// === ISSUE/TICKET NUMBER ===
-		let ticketNumber = null;
-        ticketNumber = await vscode.window.showInputBox({
+		let ticket_number = null;
+        ticket_number = await vscode.window.showInputBox({
 			prompt: 'Enter issue or ticket number',
 			title: 'Issue/Ticket Number',
 			placeHolder: 'Enter you issue or ticket number.',
+			value: issue_number,
 		});
 
 		// === DESCRIPTION ===
@@ -94,31 +108,30 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 
 		// === BUILDING COMMIT MESSAGE ===
-		const commitArray: string[] = [];
+		const commit_array: string[] = [];
 
 		const t = type;
 		const s = scope ? `(${scope})` : '';
-		const tn = ticketNumber ? `${ticketNumber} - ` : '';
+		const tn = ticket_number ? `${ticket_number} - ` : '';
 		const d = description;
 		const first = `${t}${s}: ${emoji} ${tn}${d}`;
-		commitArray.push(first);
+		commit_array.push(first);
 
 		if (body) {
-			commitArray.push(body);
+			commit_array.push(body);
 		}
 
 		if (footer) {
-			commitArray.push(footer);
+			commit_array.push(footer);
 		}
 
-		// === COMMIT ===
-		const gitExtension = vscode.extensions.getExtension('vscode.git')?.exports;
-		const repo = gitExtension.getAPI(1).repositories[0];
+		console.log(vscode.extensions.getExtension('vscode.git'));
 
-		repo.commit(commitArray.join('\n\n'))
+		// === COMMIT ===
+		repo.commit(commit_array.join('\n\n'))
 			.then((res: unknown) => {
 				console.log(res);
-				vscode.window.showInformationMessage(`Commit made.\n\n${commitArray.join('\n\n')}`);
+				vscode.window.showInformationMessage(`Commit made.\n\n${commit_array.join('\n\n')}`);
 			})
 			.catch((err: { message: string, stdout: string }) => {
 				console.error(err);
