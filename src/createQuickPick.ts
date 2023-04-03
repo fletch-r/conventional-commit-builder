@@ -7,7 +7,7 @@ export default function createQuickPick(
 	placeholder: string,
 	items: { label: string, detail?: string, description?: string }[],
 	step: number,
-) {
+): Promise<string> {
 	return new Promise((resolve, reject) => {
 		let current = 0;
 	
