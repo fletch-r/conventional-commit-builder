@@ -35,9 +35,9 @@ export function activate(context: vscode.ExtensionContext) {
 			issue_number = possible_issue_number[0];
 		}
 
-		// === GET SCHEMA ===
-		const DEFAULT_SCHEMA =  "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
-		const workspace_schema = workspace_config.get('schema') as unknown as string;
+		// === GET TEMPLATE ===
+		const DEFAULT_TEMPLATE =  "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
+		const workspace_template = workspace_config.get('template') as unknown as string;
 
 		// === TYPE ===
 		let type = '';
@@ -106,13 +106,13 @@ export function activate(context: vscode.ExtensionContext) {
 		const footer = await footerInputBox();
 
 		// === BUILDING COMMIT MESSAGE ===
-		let chosen_schema = '';
-		if (workspace_schema) {
-			chosen_schema = workspace_schema;
+		let chosen_template = '';
+		if (workspace_template) {
+			chosen_template = workspace_template;
 		} else {
-			chosen_schema = DEFAULT_SCHEMA;
+			chosen_template = DEFAULT_TEMPLATE;
 		}
-		const commit_message = chosen_schema.replace('<type>', type)
+		const commit_message = chosen_template.replace('<type>', type)
 										.replace('<scope>', scope ? `(${scope})` : '')
 										.replace('<emoji>', emoji)
 										.replace('<number>', ticket_number)
