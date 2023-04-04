@@ -34,7 +34,7 @@
         "title": "Simple Commit: Commit staged files.",
         "icon": {
           "dark": "./assets/simple-commit-dark.svg",
-          "light": "./assets/simple-commit-black.svg"
+          "light": "./assets/simple-commit-light.svg"
         }
       }
     ],
