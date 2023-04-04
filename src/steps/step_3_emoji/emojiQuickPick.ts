@@ -20,7 +20,7 @@ export default async function emojiQuickPick() {
     }));
 
 	return await createQuickPick(
-		'',
+		'Emoji',
 		'Select an emoji for your commit.',
 		items,
 		3,

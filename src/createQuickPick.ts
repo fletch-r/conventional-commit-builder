@@ -34,7 +34,7 @@ export default function createQuickPick(
 		quickPick.onDidTriggerButton((e) => {
 			if (e === vscode.QuickInputButtons.Back) {
 				quickPick.step = step - 1;
-				resolve(quickPick.value);
+				reject(quickPick.value);
 			}
 			resolve(quickPick.value);
 		});

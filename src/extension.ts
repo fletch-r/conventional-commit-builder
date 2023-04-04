@@ -2,6 +2,10 @@ import * as vscode from 'vscode';
 import typeQuickPick from './steps/step_1_type/typeQuickPick';
 import scopeQuickPick from './steps/step_2_scope/scopeQuickPick';
 import emojiQuickPick from './steps/step_3_emoji/emojiQuickPick';
+import numberInputBox from './steps/step_4_ticket_number/numberInputBox';
+import descriptionInputBox from './steps/step_5_description/descriptionInputBox';
+import bodyInputBox from './steps/step_6_body/bodyInputBox';
+import footerInputBox from './steps/step_7_footer/footerInputBox';
 
 // Example commit
 /**
@@ -32,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// === GET SCHEMA ===
-		const DEFAULT_SCHEMA =  "<type>(<scope>): <emoji> <number> - <description>\n\n<body>\n\n<footer>";
+		const DEFAULT_SCHEMA =  "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
 		const workspace_schema = workspace_config.get('schema') as unknown as string;
 
 		// === TYPE ===
@@ -90,37 +94,16 @@ export function activate(context: vscode.ExtensionContext) {
 		const emoji = await emojiQuickPick();
 
 		// === ISSUE/TICKET NUMBER ===
-		let ticket_number = '';
-        ticket_number = await vscode.window.showInputBox({
-			prompt: 'Enter issue or ticket number',
-			title: 'Issue/Ticket Number',
-			placeHolder: 'Enter you issue or ticket number.',
-			value: issue_number,
-		}) as string;
+		const ticket_number = await numberInputBox(issue_number);
 
 		// === DESCRIPTION ===
-		let description = '';
-        description = await vscode.window.showInputBox({
-			prompt: 'Enter a short description of this commit.',
-			title: 'Description',
-			placeHolder: 'Enter a short description of this commit.',
-		}) as string;
+		const description = await descriptionInputBox();
 		
 		// === BODY ===
-		let body = '';
-        body = await vscode.window.showInputBox({
-			prompt: 'Enter a detailed description of this commit.',
-			title: 'Body',
-			placeHolder: 'Enter a detailed description of this commit.',
-		}) as string;
+		const body = await bodyInputBox();
 
 		// === FOOTER ===
-		let footer = '';
-        footer = await vscode.window.showInputBox({
-			prompt: 'Enter a footer',
-			title: 'Footer',
-			placeHolder: 'Enter remaining information such as Breaking Changes details about this commit.',
-		}) as string;
+		const footer = await footerInputBox();
 
 		// === BUILDING COMMIT MESSAGE ===
 		let chosen_schema = '';
@@ -136,6 +119,8 @@ export function activate(context: vscode.ExtensionContext) {
 										.replace('<description>', description)
 										.replace('<body>', body)
 										.replace('<footer>', footer);
+
+		console.log(commit_message);
 		// === COMMIT ===
 		repo.commit(commit_message)
 			.then(() => {
