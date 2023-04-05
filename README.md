@@ -1,7 +1,5 @@
 <img src="assets/SimpleCommitBanner.png" alt="simple commit">
 
-<br>
-
 ### Simple Commit is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages.
 
 ## Features
