@@ -8,7 +8,6 @@ export default function createInputBox({
     prompt,
 	step,
     value,
-	validate = () => undefined,
 }: {
     title: string;
 	placeholder: string;
@@ -33,47 +32,22 @@ export default function createInputBox({
 		inputBox.buttons = [
 			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
 		];
-	
-		// inputBox.onDidChangeValue((value) => {
-		// 	resolve(value);
-		// });
-		// inputBox.onDidTriggerButton((e) => {
-		// 	if (e === vscode.QuickInputButtons.Back) {
-		// 		inputBox.step = step - 1;
-		// 		reject(inputBox.value);
-		// 	}
-		// 	resolve(inputBox.value);
-		// });
 
-		inputBox.onDidChangeValue(function () {
+		inputBox.onDidAccept(function () {
 			try {
-			  inputBox.validationMessage = validate(inputBox.value);
+				resolve(inputBox.value);
+				inputBox.dispose();
 			} catch (e) {
-			  console.error(`step.${inputBox.step}`, e);
-			  reject(e);
+				console.error(`step.${inputBox.step}`, e);
+				reject(e);
 			}
-		  });
-		  inputBox.onDidAccept(function () {
-			try {
-			  inputBox.validationMessage = validate(inputBox.value);
-			  if (inputBox.validationMessage) {
-				return;
-			  }
-			  resolve(inputBox.value);
-			  inputBox.dispose();
-			} catch (e) {
-			  console.error(`step.${inputBox.step}`, e);
-			  reject(e);
-			}
-		  });
-		  inputBox.onDidTriggerButton(function (e) {
+		});
+
+		inputBox.onDidTriggerButton(function (e) {
 			if (e === vscode.QuickInputButtons.Back) {
-			  reject({
-				button: e,
-				value: inputBox.value,
-			  });
+				reject('');
 			}
-		  });
+		});
 	
 		inputBox.show();
 	});
