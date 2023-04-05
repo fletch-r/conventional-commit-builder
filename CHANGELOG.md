@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Back button: Allows user to go to the previous prompt to review/change their input.
 
+## [0.4.0] - 2023-04-05
+
+- [`67d1818`](https://github.com/0xATHERIS/simple-commit/commit/67d18181269565ed4d5139cb7ba33c1207897e61) Renamed schema to template. This change means that `simpleCommit.schema` will have to be renamed to `simpleCommit.template` in your `settings.json` file.
+
 ## [0.3.0] - 2023-04-04
 
 ### Added
