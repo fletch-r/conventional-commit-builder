@@ -17,7 +17,7 @@ export default async function scopeQuickPick(workspaceScopes: string[]) {
 		}
 	}
 	scopeOptions.push({ label: 'New Scope', description: 'Add a new scope to your workspace to reuse in the future.' });
-	scopeOptions.push({ label: 'Once Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
+	scopeOptions.push({ label: 'One Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
 
 	return await createQuickPick(
 		'Scope',
