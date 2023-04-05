@@ -10,7 +10,7 @@ const gitmojis: {
     }[];
 } = require('../../vendors/gitmojis.json');
 
-export default async function emojiQuickPick() {
+export default async function emojiQuickPick(): Promise<string> {
     const emojis = gitmojis.gitmojis;
 
     const items = emojis.map((obj) => ({
