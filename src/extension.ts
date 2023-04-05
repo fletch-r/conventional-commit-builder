@@ -6,15 +6,22 @@ import numberInputBox from './steps/step_4_ticket_number/numberInputBox';
 import descriptionInputBox from './steps/step_5_description/descriptionInputBox';
 import bodyInputBox from './steps/step_6_body/bodyInputBox';
 import footerInputBox from './steps/step_7_footer/footerInputBox';
+import newScopeInputBox from './steps/step_2_scope/newScopeInputBox';
+import oneTimeScopeInputBox from './steps/step_2_scope/oneTimeScopeInputBox';
 
 // Example commit
 /**
- * fix(PLP): 🐛 BE-2101 - Added correct response type
+ * fix(api): 🐛 101 - Added correct response type
  * 
  * The response type was set to the wrong type so I corrected it.
  * 
  * BREAKING CHANGE: The API changed it's response type.
  */
+
+type RepoCommitError = {
+	message: string;
+	stdout: string;
+};
 
 export function activate(context: vscode.ExtensionContext) {
   	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
@@ -45,44 +52,29 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// === SCOPE ===
 		let scope = null;
-		const workspace_scopes: string[] = workspace_config.get('scopes') as unknown as string[];
+		const saved_scopes: string[] = workspace_config.get('scopes') as unknown as string[];
 
-		const scope_type = await scopeQuickPick(workspace_scopes);
+		const scope_type = await scopeQuickPick(saved_scopes);
 
 		if (scope_type === 'New Scope') {
-			await vscode.window.showInputBox({
-				prompt: 'Enter new scope name.',
-				title: 'New Scope',
-				placeHolder: 'Enter a name for your new scope.',
-			})
-			.then(async (new_scope) => {
-				if (new_scope) {
-					await workspace_config.update(
-						'scopes',
-						[...workspace_scopes, new_scope],
-						vscode.ConfigurationTarget.Workspace,
-					)
-						.then(() => {
-							if (workspace_scopes) {
-								scope = [...workspace_scopes, new_scope];
-							} else {
-								scope = new_scope;
-							}
-						});
+			const new_scope = await newScopeInputBox();
+			if (new_scope) {
+				await workspace_config.update('scopes', [...saved_scopes, new_scope], vscode.ConfigurationTarget.Workspace);
+				if (saved_scopes) {
+					scope = [...saved_scopes, new_scope];
+				} else {
 					scope = new_scope;
 				}
-			});
-		} else if (scope_type === 'Once Time Scope') {
-			await vscode.window.showInputBox({
-				prompt: 'Enter scope name.',
-				title: 'One Time Scope',
-				placeHolder: 'Enter the scope name.',
-			})
-			.then(async (new_scope) => {
-				if (new_scope) {
-					scope = new_scope;
-				}
-			});
+			} else {
+				scope = '';
+			}
+		} else if (scope_type === 'One Time Scope') {
+			const new_scope = await oneTimeScopeInputBox();
+			if (new_scope) {
+				scope = new_scope;
+			} else {
+				scope = '';
+			}
 		} else if (scope_type === 'None') {
 			scope = '';
 		} else {
@@ -113,20 +105,19 @@ export function activate(context: vscode.ExtensionContext) {
 			chosen_template = DEFAULT_TEMPLATE;
 		}
 		const commit_message = chosen_template.replace('<type>', type)
-										.replace('<scope>', scope ? `(${scope})` : '')
-										.replace('<emoji>', emoji)
-										.replace('<number>', ticket_number)
-										.replace('<description>', description)
-										.replace('<body>', body)
-										.replace('<footer>', footer);
+												.replace('<scope>', scope ? `(${scope})` : '')
+												.replace('<emoji>', emoji)
+												.replace('<number>', ticket_number)
+												.replace('<description>', description)
+												.replace('<body>', body)
+												.replace('<footer>', footer);
 
-		console.log(commit_message);
 		// === COMMIT ===
 		repo.commit(commit_message)
 			.then(() => {
 				vscode.window.showInformationMessage(`Commit made.\n\n${commit_message}`);
 			})
-			.catch((err: { message: string, stdout: string }) => {
+			.catch((err: RepoCommitError) => {
 				console.error(err);
 				vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
 			});
