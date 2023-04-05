@@ -1,6 +1,4 @@
-<img align="left" width="100" height="100" top="100" src="assets/icon.png" alt="simple commit">
-
-# Simple Commit - VSCode Extension
+<img src="assets/SimpleCommitBanner.png" alt="simple commit">
 
 <br>
 
