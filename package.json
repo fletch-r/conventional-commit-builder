@@ -14,7 +14,7 @@
     "url": "https://github.com/0xATHERIS/simple-commit/issues"
   },
   "homepage": "https://github.com/0xATHERIS/simple-commit",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.76.0"
   },
