@@ -1,7 +1,8 @@
-<div style="display: flex; align-items: center; gap: 20px; margin-bottom: 1rem;">
-    <img src="assets/icon.png" width="50px" alt="simple commit">
-    <div style="font-size: 2rem;">Simple Commit - VSCode Extension</div>
-</div>
+<img align="left" width="100" height="100" top="100" src="assets/icon.png" alt="simple commit">
+
+# Simple Commit - VSCode Extension
+
+<br>
 
 ### Simple Commit is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages.
 
