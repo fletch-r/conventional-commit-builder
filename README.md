@@ -13,8 +13,6 @@
 - Supports common commit message formats, such as the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 - Allows for easy integration with Git hooks and other CI/CD tools.
 
-<br>
-
 ## Usage
 
 To use Simple Commit, either: 
@@ -27,13 +25,9 @@ If your project management tool is supported (e.g. Jira), Simple Commit will aut
 
 You can also use the enter key to quickly cycle through the available suggestions.
 
-<br>
-
 ## Configuration
 
 Simple Commit can be configured through VSCode settings. To access the settings, go to "File" > "Preferences" > "Settings" or use the keyboard shortcut `Ctrl + ,` or `Cmd + ,`.
-
-<br>
 
 ## Here are some of the available configuration options:
 
@@ -50,13 +44,9 @@ The default for this is `"<type><scope>: <emoji> <number> - <description>\n\n<bo
 - `<body>` - This will get replaced by the Body prompt.
 - `<footer>` - This will get replaced by the Footer prompt.
 
-<br>
-
 ## Contributing
 
 If you would like to contribute to Simple Commit, please fork the repository and submit a pull request. Contributions are always welcome!
-
-<br>
 
 ## License
 Simple Commit is licensed under the MIT License.
