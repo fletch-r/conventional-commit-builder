@@ -2,12 +2,19 @@ import * as vscode from 'vscode';
 
 const TOTAL_STEPS = 6;
 
+export type QuickPickItemsType = {
+	label: string;
+	detail?: string;
+	description?: string;
+};
+
 export default function createQuickPick(
 	title: string,
 	placeholder: string,
 	items: { label: string, detail?: string, description?: string }[],
 	step: number,
-): Promise<string> {
+	canSelectMany: boolean,
+): Promise<{ label: string, description: string, detail?: string, }[]> {
 	return new Promise((resolve, reject) => {
 		let current = 0;
 	
@@ -20,23 +27,28 @@ export default function createQuickPick(
 	
 		quickPick.step = step;
 		quickPick.totalSteps = TOTAL_STEPS;
-		quickPick.ignoreFocusOut;
+		quickPick.ignoreFocusOut = true;
+		quickPick.canSelectMany = canSelectMany;
+		quickPick.matchOnDetail = true;
 	
 		quickPick.buttons = [
 			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
 		];
+
+		let selected: any = [];
 	
 		quickPick.onDidChangeSelection((selection) => {
-			if (selection[0]) {
-				resolve(selection[0].label);
-			}
+			selected = selection;
 		});
 		quickPick.onDidTriggerButton((e) => {
 			if (e === vscode.QuickInputButtons.Back) {
 				reject('');
 			}
-			resolve(quickPick.value);
 		});
+		quickPick.onDidAccept(() => {
+			resolve(selected);
+		});
+	
 	
 		quickPick.show();
 	});

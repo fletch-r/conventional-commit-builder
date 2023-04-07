@@ -6,6 +6,7 @@ import descriptionInputBox from './steps/description/descriptionInputBox';
 import bodyInputBox from './steps/body/bodyInputBox';
 import footerInputBox from './steps/footer/footerInputBox';
 import chosenScope from './steps/scope/chosenScope';
+import createQuickPick, { QuickPickItemsType } from './createQuickPick';
 
 // Example commit
 /**
@@ -21,19 +22,90 @@ type RepoCommitError = {
 	stdout: string;
 };
 
+type ChangesType = {
+	originalUri: {
+		_formatted: null
+		_fsPath: null
+		authority: string
+		fragment: string
+		fsPath: string
+		path: string
+		query: string
+		scheme: string
+	},
+	renameUri: {
+		_formatted: null
+		_fsPath: null
+		authority: string
+		fragment: string
+		fsPath: string
+		path: string
+		query: string
+		scheme: string
+	},
+	status: 5
+	uri: {
+		_formatted: null
+		_fsPath: null
+		authority: string
+		fragment: string
+		fsPath: string
+		path: string
+		query: string
+		scheme: string
+	}
+};
+
+// Gets the remaining characters after the last /
+const FILE_NAME_REGEX = /[^\/]+$/;
+// Finds the first number and also gets the leading characters before the number but stops before /
+const ISSUE_NUMBER_REGEX = /(?!.*\/)([^\d]*)(\d+)/;
+
 export function activate(context: vscode.ExtensionContext) {
-  	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+		// === INITIATE CONFIG ===
+		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
+
 		// === INITIATE GIT ===
 		const git_extension = vscode.extensions.getExtension('vscode.git')?.exports;
 		const repo = git_extension.getAPI(1).repositories[0];
 
-		// === INITIATE CONFIG ===
-		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
+		if (!repo) {
+			vscode.window.showInformationMessage('No Git repository found');
+			return;
+		}
+
+		// === CHECKS FOR STAGED CHANGES ===
+		const staged_files = repo.state.indexChanges;
+
+		if (staged_files.length === 0) {
+			const changes = await repo.diffWithHEAD();
+
+			let changed_files: QuickPickItemsType[] = [];
+
+			changes.forEach((obj: ChangesType) => {
+				const file_name_regex = obj.uri.path.match(FILE_NAME_REGEX);
+				if (file_name_regex) {
+					const file_name = file_name_regex[0];
+					changed_files.push({ label: file_name, description: obj.uri.path });
+				}
+			});
+
+			const chosen_files = await createQuickPick(
+				'Changes to Stage', // title
+				'Please select one or more changes to stage before continuing.', // placeholder
+				changed_files, // items
+				0, // step
+				true, // canSelectMany
+			);
+			const file_paths = chosen_files.map((obj) => obj.description);
+			await repo.add(file_paths);
+		}
 
 		// === AUTO-DETECT ISSUE NUMBER ===
 		const head = repo.state.HEAD;
 		const repo_name: string = head.name;
-		const possible_issue_number = repo_name.match(/(?!.*\/)([^\d]*)(\d+)/);
+		const possible_issue_number = repo_name.match(ISSUE_NUMBER_REGEX);
 
 		let issue_number = '';
 		if (possible_issue_number) {
@@ -41,7 +113,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// === GET TEMPLATE ===
-		const DEFAULT_TEMPLATE =  "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
+		const DEFAULT_TEMPLATE = "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
 		const workspace_template = workspace_config.get('template') as unknown as string;
 
 		let chosen_template = '';
@@ -70,58 +142,58 @@ export function activate(context: vscode.ExtensionContext) {
 			switch (step) {
 				case '<type>':
 					await typeQuickPick()
-							.then((value: string) => {
-								type = value;
-								current_step++;
-							});
+						.then((value: string) => {
+							type = value;
+							current_step++;
+						});
 					break;
 				case '<scope>':
 					await chosenScope(workspace_config)
-							.then((value: string) => {
-								scope = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value: string) => {
+							scope = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				case '<emoji>':
 					await emojiQuickPick()
-							.then((value) => {
-								emoji = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value) => {
+							emoji = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				case '<number>':
 					await numberInputBox(issue_number)
-							.then((value: string) => {
-								ticket_number = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value: string) => {
+							ticket_number = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				case '<description>':
 					await descriptionInputBox()
-							.then((value: string) => {
-								description = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value: string) => {
+							description = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				case '<body>':
 					await bodyInputBox()
-							.then((value: string) => {
-								body = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value: string) => {
+							body = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				case '<footer>':
 					await footerInputBox()
-							.then((value: string) => {
-								footer = value;
-								current_step++;
-							})
-							.catch(() => current_step--);
+						.then((value: string) => {
+							footer = value;
+							current_step++;
+						})
+						.catch(() => current_step--);
 					break;
 				default:
 					break;
@@ -130,12 +202,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// === BUILDING COMMIT MESSAGE ===
 		const commit_message = chosen_template.replace('<type>', type)
-												.replace('<scope>', scope ? `(${scope})` : '')
-												.replace('<emoji>', emoji)
-												.replace('<number>', ticket_number)
-												.replace('<description>', description)
-												.replace('<body>', body)
-												.replace('<footer>', footer);
+			.replace('<scope>', scope ? `(${scope})` : '')
+			.replace('<emoji>', emoji)
+			.replace('<number>', ticket_number)
+			.replace('<description>', description)
+			.replace('<body>', body)
+			.replace('<footer>', footer);
 
 		console.log('Commit Message:', `\n\n${commit_message}`);
 
@@ -148,10 +220,10 @@ export function activate(context: vscode.ExtensionContext) {
 				console.error(err);
 				vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
 			});
-    });
+	});
 
-    context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

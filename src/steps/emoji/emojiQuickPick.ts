@@ -14,15 +14,18 @@ export default async function emojiQuickPick(): Promise<string> {
     const emojis = gitmojis.gitmojis;
 
     const items = emojis.map((obj) => ({
-        label: obj.code,
-        description: obj.emoji,
+        label: obj.emoji,
+        description: obj.code,
         detail: obj.description
     }));
 
-	return await createQuickPick(
-		'Emoji',
-		'Select an emoji for your commit.',
-		items,
-		3,
+	const selected_emoji = await createQuickPick(
+		'Emoji', // title
+		'Select an emoji for your commit.', // placeholder
+		items, // items
+		3, // step
+        false, // canSelectMany
 	);
+
+    return selected_emoji[0].description;
 }
