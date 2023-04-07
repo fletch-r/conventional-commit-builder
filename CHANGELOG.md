@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom Issue Regex: Simple Commit uses the regex pattern `/(?!.*\/)([^\d]*)(\d+)/` to detect what your issue/ticket number is. I know that at some point someones issue/ticket number structure will fail that regex pattern leading to them thinking there is a bug. So a upcoming feature will allow you to use a custom regex to detect your issue/ticket number in your `settings.json` file using `simpleCommit.issueRegex: "/your-regex-here/"`.
 - Select Files To Stage: Currently Simple Commit will run the commit prompts and then do nothing once you've entered all the commit information if no files are staged. This feature will first check if there are any staged files, if not, it will prompt you to select files to stage first.
 
+## [1.1.0] - 2023-04-06
+
+- [#11](https://github.com/0xATHERIS/simple-commit/pull/12) - [`41c7afc`](https://github.com/0xATHERIS/simple-commit/pull/12/commits/41c7afcc2658494c8b456f39bf8e9daf6b8fff34) If you haven't staged any changes. Before Simple Commit asks you for your commit details it will ask you to chose changes to stage.
+
+
+## [1.0.1] - 2023-04-06
+
+- [`3c806ae`](https://github.com/0xATHERIS/simple-commit/commit/3c806ae28136fbf2085782dbde1d5e7057bbfe27) - Renamed SVG's to `simple-commit-light` and `simple-commit-dark`.
+- [`7e4e367`](https://github.com/0xATHERIS/simple-commit/commit/7e4e367f90e58c4a4a9a9cc69092fc7c10933971) - Added more keywords and categories to help the extension get discovered.
+
 ## [1.0.0] - 2023-04-06
 
 ### Added
