@@ -2,30 +2,32 @@ import createQuickPick from '../../createQuickPick';
 
 export default async function scopeQuickPick(saved_scopes: string[]): Promise<string> {
 	return new Promise(async (resolve, reject) => {
-		const scopeOptions = [{ label: 'None', description: 'No scope.' }];
+		const scope_options = [{ label: 'None', description: 'No scope.' }];
 	
 		if (saved_scopes) {
-			const formattedScopes = saved_scopes.map((str) => ({
+			const formatted_scopes = saved_scopes.map((str) => ({
 				label: str,
 				description: '',
 				detail: 'From saved scopes.'
 			}));
-			for (let i = 0; i < formattedScopes.length; i++) {
-				const formattedScope = formattedScopes[i];
-				scopeOptions.push(formattedScope);
+			for (let i = 0; i < formatted_scopes.length; i++) {
+				const formatted_scope = formatted_scopes[i];
+				scope_options.push(formatted_scope);
 			}
 		}
-		scopeOptions.push({ label: 'New Scope', description: 'Add a new scope to your workspace to reuse in the future.' });
-		scopeOptions.push({ label: 'One Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
+		scope_options.push({ label: 'New Scope', description: 'Add a new scope to your workspace to reuse in the future.' });
+		scope_options.push({ label: 'One Time Scope', description: 'Enter a scope that won\'t get saved to your workspace.' });
 
 		try {
-			const value = await createQuickPick(
-				'Scope',
-				'Select the scope for your commit.',
-				scopeOptions,
-				2,
+			const selected_scope = await createQuickPick(
+				'Scope', // title
+				'Select the scope for your commit.', // placeholder
+				scope_options, // items
+				2, // step
+				false, // canSelectMany
 			);
-			resolve(value);
+
+			resolve(selected_scope[0].label);
 		} catch (rejectedValue) {
 			reject(rejectedValue);
 		}
