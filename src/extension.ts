@@ -58,8 +58,6 @@ type ChangesType = {
 
 // Gets the remaining characters after the last /
 const FILE_NAME_REGEX = /[^\/]+$/;
-// Finds the first number and also gets the leading characters before the number but stops before /
-const ISSUE_NUMBER_REGEX = /(?!.*\/)([^\d]*)(\d+)/;
 
 export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
@@ -103,10 +101,23 @@ export function activate(context: vscode.ExtensionContext) {
 			await repo.add(file_paths);
 		}
 
+		// === GET ISSUE REGEX ===
+		// Finds the first number and also gets the leading characters before the number but stops before /
+		const DEFAULT_ISSUE_REGEX = "(?!.*\/)([^\\d]*)(\\d+)"; // You need to escape \ if you want to keep them in the regex output.
+		const workspace_issue_regex = workspace_config.get('issueRegex') as unknown as string;
+
+		let chosen_issue_regex = '';
+		if (workspace_issue_regex) { // If theres a commit template in the users settings.json file, use that.
+			chosen_issue_regex = workspace_issue_regex;
+		} else {
+			chosen_issue_regex = DEFAULT_ISSUE_REGEX;
+		}
+
 		// === AUTO-DETECT ISSUE NUMBER ===
 		const head = repo.state.HEAD;
 		const repo_name: string = head.name;
-		const possible_issue_number = repo_name.match(ISSUE_NUMBER_REGEX);
+		const issue_regex = new RegExp(chosen_issue_regex);
+		const possible_issue_number = repo_name.match(issue_regex);
 
 		let issue_number = '';
 		if (possible_issue_number) {
@@ -114,19 +125,19 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// === GET TEMPLATE ===
-		const DEFAULT_TEMPLATE = "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
-		const workspace_template = workspace_config.get('template') as unknown as string;
+		const DEFAULT_COMMIT_TEMPLATE = "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
+		const workspace_commit_template = workspace_config.get('template') as unknown as string;
 
-		let chosen_template = '';
-		if (workspace_template) { // If theres a commit template in the users settings.json file, use that.
-			chosen_template = workspace_template;
+		let chosen_commit_template = '';
+		if (workspace_commit_template) { // If theres a commit template in the users settings.json file, use that.
+			chosen_commit_template = workspace_commit_template;
 		} else {
-			chosen_template = DEFAULT_TEMPLATE;
+			chosen_commit_template = DEFAULT_COMMIT_TEMPLATE;
 		}
 
 		// === STEP ORDER ===
 		const TEMPLATE_REGEX = /(<)((type|scope|emoji|number|description|body|footer)(>))/g;
-		const matched_values = [...chosen_template.matchAll(TEMPLATE_REGEX)];
+		const matched_values = [...chosen_commit_template.matchAll(TEMPLATE_REGEX)];
 		const step_order = matched_values.map((arr) => arr[0]);
 
 		let type = '';
@@ -202,7 +213,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// === BUILDING COMMIT MESSAGE ===
-		const commit_message = chosen_template.replace('<type>', type)
+		const commit_message = chosen_commit_template.replace('<type>', type)
 			.replace('<scope>', scope ? `(${scope})` : '')
 			.replace('<emoji>', emoji)
 			.replace('<number>', ticket_number)
