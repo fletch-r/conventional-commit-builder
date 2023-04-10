@@ -78,6 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// === CHECKS FOR STAGED CHANGES ===
 		const staged_files = repo.state.indexChanges;
 
+		// If no changes/files have been staged.
 		if (staged_files.length === 0) {
 			const changes = await repo.diffWithHEAD();
 
