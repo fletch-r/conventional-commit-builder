@@ -12,7 +12,8 @@
     "typescript.tsc.autoDetect": "off",
     "simpleCommit.scopes": [
         "release",
-        "settings"
+        "settings",
+        "readme"
     ],
     "simpleCommit.template": "<type><scope>: <emoji> #<number> - <description>\n\n<body>\n\n<footer>"
 }
