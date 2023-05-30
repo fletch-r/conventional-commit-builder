@@ -5,30 +5,30 @@ const TOTAL_STEPS = 6;
 export default function createInputBox({
 	title,
 	placeholder,
-    prompt,
+	prompt,
 	step,
-    value,
+	value,
 }: {
-    title: string;
+	title: string;
 	placeholder: string;
-    prompt: string;
+	prompt: string;
 	step: number;
-    value?: string;
+	value?: string;
 	validate?: (value: string) => string | undefined;
 }): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const inputBox = vscode.window.createInputBox();
 		inputBox.title = title;
 		inputBox.placeholder = placeholder;
-        inputBox.prompt = prompt;
-        if (value) {
-            inputBox.value = value;
-        }
-	
+		inputBox.prompt = prompt;
+		if (value) {
+			inputBox.value = value;
+		}
+
 		inputBox.step = step;
 		inputBox.totalSteps = TOTAL_STEPS;
-		inputBox.ignoreFocusOut;
-	
+		inputBox.ignoreFocusOut = true;
+
 		inputBox.buttons = [
 			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
 		];
@@ -48,7 +48,7 @@ export default function createInputBox({
 				reject('');
 			}
 		});
-	
+
 		inputBox.show();
 	});
 }
