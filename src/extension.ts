@@ -153,14 +153,14 @@ export function activate(context: vscode.ExtensionContext) {
 			const step = step_order[current_step];
 			switch (step) {
 				case '<type>':
-					await typeQuickPick()
+					await typeQuickPick(type)
 						.then((value: string) => {
 							type = value;
 							current_step++;
 						});
 					break;
 				case '<scope>':
-					await chosenScope(workspace_config)
+					await chosenScope(workspace_config, scope)
 						.then((value: string) => {
 							scope = value;
 							current_step++;
@@ -168,7 +168,7 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<emoji>':
-					await emojiQuickPick()
+					await emojiQuickPick(emoji)
 						.then((value) => {
 							emoji = value;
 							current_step++;
@@ -176,7 +176,7 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<number>':
-					await numberInputBox(issue_number)
+					await numberInputBox(issue_number, ticket_number)
 						.then((value: string) => {
 							ticket_number = value;
 							current_step++;
@@ -184,7 +184,7 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<description>':
-					await descriptionInputBox()
+					await descriptionInputBox(description)
 						.then((value: string) => {
 							description = value;
 							current_step++;
@@ -192,7 +192,7 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<body>':
-					await bodyInputBox()
+					await bodyInputBox(body)
 						.then((value: string) => {
 							body = value;
 							current_step++;
@@ -200,7 +200,7 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<footer>':
-					await footerInputBox()
+					await footerInputBox(footer)
 						.then((value: string) => {
 							footer = value;
 							current_step++;
