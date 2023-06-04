@@ -1,6 +1,6 @@
 import createQuickPick from '../../createQuickPick';
 
-export default async function typeQuickPick(): Promise<string> {
+export default async function typeQuickPick(existingValue: string): Promise<string> {
 	const available_types = [
 		{ label: 'feat', description: 'Feature', detail: "A new feature" },
 		{ label: 'fix', description: 'Bug Fix', detail: 'A bug fix' },
@@ -18,6 +18,7 @@ export default async function typeQuickPick(): Promise<string> {
 		available_types, // items
 		1, // step
 		false, // canSelectMany
+		existingValue,
 	);
 
 	return selected_type[0].label;

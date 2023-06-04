@@ -1,9 +1,12 @@
 import createQuickPick from '../../createQuickPick';
 
-export default async function scopeQuickPick(saved_scopes: string[]): Promise<string> {
+export default async function scopeQuickPick(
+	saved_scopes: string[],
+	existingValue: string
+): Promise<string> {
 	return new Promise(async (resolve, reject) => {
 		const scope_options = [{ label: 'None', description: 'No scope.' }];
-	
+
 		if (saved_scopes) {
 			const formatted_scopes = saved_scopes.map((str) => ({
 				label: str,
@@ -25,6 +28,7 @@ export default async function scopeQuickPick(saved_scopes: string[]): Promise<st
 				scope_options, // items
 				2, // step
 				false, // canSelectMany
+				existingValue,
 			);
 
 			resolve(selected_scope[0].label);
