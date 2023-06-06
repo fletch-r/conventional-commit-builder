@@ -14,7 +14,7 @@ export default function createQuickPick(
 	items: { label: string, detail?: string, description?: string }[],
 	step: number,
 	canSelectMany: boolean,
-	existingValue?: string,
+	existing_value?: string,
 ): Promise<{ label: string, description: string, detail?: string, }[]> {
 	return new Promise((resolve, reject) => {
 		let current = 0;
@@ -22,8 +22,8 @@ export default function createQuickPick(
 		const quickPick = vscode.window.createQuickPick();
 		quickPick.title = title;
 		quickPick.placeholder = placeholder;
-		if (existingValue) {
-			quickPick.value = existingValue;
+		if (existing_value) {
+			quickPick.value = existing_value;
 		}
 
 		quickPick.items = items;
