@@ -2,9 +2,9 @@ import createInputBox from "../../createInputBox";
 
 export default async function numberInputBox(
     issue_number: string,
-    existingNumber: string
+    existing_number: string
 ): Promise<string> {
-    const value = existingNumber.length > 0 ? issue_number : existingNumber;
+    const value = existing_number.length > 0 ? existing_number : issue_number;
     return await createInputBox({
         title: 'Issue/Ticket Number',
         placeholder: 'Enter your issue or ticket number',

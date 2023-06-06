@@ -5,17 +5,17 @@ import oneTimeScopeInputBox from './oneTimeScopeInputBox';
 
 export default async function chosenScope(
     workspace_config: vscode.WorkspaceConfiguration,
-    existingValue: string
+    existing_value: string
 ): Promise<string> {
     return new Promise((resolve, reject) => {
         const saved_scopes: string[] = workspace_config.get('scopes') as unknown as string[];
 
-        scopeQuickPick(saved_scopes, existingValue)
+        scopeQuickPick(saved_scopes, existing_value)
             .then(async (value) => {
                 const scope_type = value;
 
                 if (scope_type === 'New Scope') {
-                    const new_scope = await newScopeInputBox(existingValue);
+                    const new_scope = await newScopeInputBox(existing_value);
                     if (new_scope) {
                         await workspace_config.update('scopes', [...saved_scopes, new_scope], vscode.ConfigurationTarget.Workspace);
                         resolve(new_scope);
@@ -23,7 +23,7 @@ export default async function chosenScope(
                         resolve('');
                     }
                 } else if (scope_type === 'One Time Scope') {
-                    const one_time_scope = await oneTimeScopeInputBox(existingValue);
+                    const one_time_scope = await oneTimeScopeInputBox(existing_value);
                     resolve(one_time_scope);
                 } else if (scope_type === 'None') {
                     resolve('');
