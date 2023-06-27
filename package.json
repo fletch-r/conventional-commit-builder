@@ -3,7 +3,7 @@
   "icon": "assets/icon.png",
   "displayName": "Simple Commit",
   "description": "Simple Commit helps you write and format your commit messages.",
-  "publisher": "0xATHERIS",
+  "publisher": "fletch-r",
   "author": "fletch-r",
   "repository": {
     "type": "git",
