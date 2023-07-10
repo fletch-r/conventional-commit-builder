@@ -23,36 +23,8 @@ type RepoCommitError = {
 };
 
 type ChangesType = {
-	originalUri: {
-		_formatted: null
-		_fsPath: null
-		authority: string
-		fragment: string
-		fsPath: string
-		path: string
-		query: string
-		scheme: string
-	},
-	renameUri: {
-		_formatted: null
-		_fsPath: null
-		authority: string
-		fragment: string
-		fsPath: string
-		path: string
-		query: string
-		scheme: string
-	},
-	status: 5
 	uri: {
-		_formatted: null
-		_fsPath: null
-		authority: string
-		fragment: string
-		fsPath: string
 		path: string
-		query: string
-		scheme: string
 	}
 };
 
