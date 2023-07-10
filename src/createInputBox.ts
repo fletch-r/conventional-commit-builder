@@ -2,20 +2,21 @@ import * as vscode from 'vscode';
 
 const TOTAL_STEPS = 6;
 
+type InputTypes = {
+	title: string;
+	placeholder: string;
+	prompt: string;
+	step: number;
+	value?: string;
+};
+
 export default function createInputBox({
 	title,
 	placeholder,
 	prompt,
 	step,
 	value,
-}: {
-	title: string;
-	placeholder: string;
-	prompt: string;
-	step: number;
-	value?: string;
-	validate?: (value: string) => string | undefined;
-}): Promise<string> {
+}: InputTypes): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const inputBox = vscode.window.createInputBox();
 		inputBox.title = title;
@@ -43,7 +44,7 @@ export default function createInputBox({
 			}
 		});
 
-		inputBox.onDidTriggerButton(function (e) {
+		inputBox.onDidTriggerButton(function (e: vscode.QuickInputButton) {
 			if (e === vscode.QuickInputButtons.Back) {
 				reject('');
 			}

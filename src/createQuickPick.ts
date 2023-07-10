@@ -4,18 +4,20 @@ const TOTAL_STEPS = 6;
 
 export type QuickPickItemsType = {
 	label: string;
+	description: string;
 	detail?: string;
-	description?: string;
 };
+
+type Writeable<T> = { -readonly [K in keyof T]: T[K] };
 
 export default function createQuickPick(
 	title: string,
 	placeholder: string,
-	items: { label: string, detail?: string, description?: string }[],
+	items: QuickPickItemsType[],
 	step: number,
 	canSelectMany: boolean,
 	existing_value?: string,
-): Promise<{ label: string, description: string, detail?: string, }[]> {
+): Promise<vscode.QuickPickItem[]> {
 	return new Promise((resolve, reject) => {
 		let current = 0;
 
@@ -39,10 +41,10 @@ export default function createQuickPick(
 			...(step > 1 ? [vscode.QuickInputButtons.Back] : [])
 		];
 
-		let selected: any = [];
+		let selected: vscode.QuickPickItem[] = [];
 
 		quickPick.onDidChangeSelection((selection) => {
-			selected = selection;
+			selected = selection as Writeable<readonly vscode.QuickPickItem[]>;
 		});
 		quickPick.onDidTriggerButton((e) => {
 			if (e === vscode.QuickInputButtons.Back) {
