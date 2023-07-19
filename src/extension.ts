@@ -50,7 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// If no changes/files have been staged.
 		if (staged_files.length === 0) {
-			const changes = await repo.diffWithHEAD();
+			const changes = repo.state.workingTreeChanges;
 
 			let changed_files: QuickPickItemsType[] = [];
 
