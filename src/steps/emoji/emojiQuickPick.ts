@@ -28,5 +28,5 @@ export default async function emojiQuickPick(exitingEmoji: string): Promise<stri
         exitingEmoji,
     );
 
-    return selected_emoji[0].description;
+    return selected_emoji[0].description || '';
 }
