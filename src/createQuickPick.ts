@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { Writable } from './types/Writable';
 
 const TOTAL_STEPS = 6;
 
@@ -7,8 +8,6 @@ export type QuickPickItemsType = {
 	description: string;
 	detail?: string;
 };
-
-type Writeable<T> = { -readonly [K in keyof T]: T[K] };
 
 export default function createQuickPick(
 	title: string,
@@ -44,7 +43,7 @@ export default function createQuickPick(
 		let selected: vscode.QuickPickItem[] = [];
 
 		quickPick.onDidChangeSelection((selection) => {
-			selected = selection as Writeable<readonly vscode.QuickPickItem[]>;
+			selected = selection as Writable<readonly vscode.QuickPickItem[]>;
 		});
 		quickPick.onDidTriggerButton((e) => {
 			if (e === vscode.QuickInputButtons.Back) {
