@@ -141,9 +141,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// === COMMIT ===
 		repo.commit(commit_message)
-			.then(() => {
-				vscode.window.showInformationMessage(`Commit made.\n\n${commit_message}`);
-			})
+			.then(() => vscode.window.showInformationMessage(commit_message))
 			.catch((err: RepoCommitError) => {
 				console.error(err);
 				vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
