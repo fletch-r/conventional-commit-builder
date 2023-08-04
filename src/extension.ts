@@ -6,7 +6,10 @@ import descriptionInputBox from './steps/description/descriptionInputBox';
 import bodyInputBox from './steps/body/bodyInputBox';
 import footerInputBox from './steps/footer/footerInputBox';
 import chosenScope from './steps/scope/chosenScope';
-import createQuickPick, { QuickPickItemsType } from './createQuickPick';
+import { DEFAULT_COMMIT_TEMPLATE, DEFAULT_ISSUE_REGEX, TEMPLATE_REGEX } from './constants';
+import initiateGit from './initiateGit';
+import stageFiles from './steps/stage_files/stageFiles';
+import getIssueNumber from './getIssueNumber';
 
 // Example commit
 /**
@@ -22,24 +25,17 @@ type RepoCommitError = {
 	stdout: string;
 };
 
-type ChangesType = {
-	uri: {
-		path: string
-	}
-};
-
-// Gets the remaining characters after the last /
-const FILE_NAME_REGEX = /[^\/]+$/;
-
 export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
 		// === INITIATE CONFIG ===
 		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
 
-		// === INITIATE GIT ===
-		const git_extension = vscode.extensions.getExtension('vscode.git')?.exports;
-		const repo = git_extension.getAPI(1).repositories[0];
+		// === WORKSPACE EXTENSION VALUES ===
+		const workspace_issue_regex = workspace_config.get('issueRegex') as string;
+		const workspace_commit_template = workspace_config.get('template') as string;
 
+		// === INITIATE GIT ===
+		const repo = initiateGit();
 		if (!repo) {
 			vscode.window.showInformationMessage('No Git repository found');
 			return;
@@ -47,70 +43,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// === CHECKS FOR STAGED CHANGES ===
 		const staged_files = repo.state.indexChanges;
-
-		// If no changes/files have been staged.
-		if (staged_files.length === 0) {
-			const changes = repo.state.workingTreeChanges;
-
-			let changed_files: QuickPickItemsType[] = [];
-
-			changes.forEach((obj: ChangesType) => {
-				const file_name_regex = obj.uri.path.match(FILE_NAME_REGEX);
-				if (file_name_regex) {
-					const file_name = file_name_regex[0];
-					changed_files.push({ label: file_name, description: obj.uri.path });
-				}
-			});
-
-			const chosen_files = await createQuickPick(
-				'Changes to Stage', // title
-				'Please select one or more changes to stage before continuing.', // placeholder
-				changed_files, // items
-				0, // step
-				true, // canSelectMany
-			);
-			const file_paths = chosen_files.map((obj) => obj.description);
+		if (staged_files.length === 0) { // If no changes/files have been staged.
+			const source_control_changes = repo.state.workingTreeChanges;
+			const file_paths = await stageFiles(source_control_changes);
 			await repo.add(file_paths);
 		}
 
-		// === GET ISSUE REGEX ===
-		// Finds the first number and also gets the leading characters before the number but stops before /
-		const DEFAULT_ISSUE_REGEX = "(?!.*\/)([^\\d]*)(\\d+)"; // You need to escape \ if you want to keep them in the regex output.
-		const workspace_issue_regex = workspace_config.get('issueRegex') as unknown as string;
-
-		let chosen_issue_regex = '';
-		if (workspace_issue_regex) { // If theres a commit template in the users settings.json file, use that.
-			chosen_issue_regex = workspace_issue_regex;
-		} else {
-			chosen_issue_regex = DEFAULT_ISSUE_REGEX;
-		}
-
-		// === AUTO-DETECT ISSUE NUMBER ===
-		const head = repo.state.HEAD;
-		const repo_name: string = head.name;
-		const issue_regex = new RegExp(chosen_issue_regex);
-		const possible_issue_number = repo_name.match(issue_regex);
-
-		let issue_number = '';
-		if (possible_issue_number) {
-			issue_number = possible_issue_number[0];
-		}
-
-		// === GET TEMPLATE ===
-		const DEFAULT_COMMIT_TEMPLATE = "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
-		const workspace_commit_template = workspace_config.get('template') as unknown as string;
-
-		let chosen_commit_template = '';
-		if (workspace_commit_template) { // If theres a commit template in the users settings.json file, use that.
-			chosen_commit_template = workspace_commit_template;
-		} else {
-			chosen_commit_template = DEFAULT_COMMIT_TEMPLATE;
-		}
-
 		// === STEP ORDER ===
-		const TEMPLATE_REGEX = /(<)((type|scope|emoji|number|description|body|footer)(>))/g;
-		const matched_values = [...chosen_commit_template.matchAll(TEMPLATE_REGEX)];
-		const step_order = matched_values.map((arr) => arr[0]);
+		const chosen_commit_template = workspace_commit_template ? workspace_commit_template : DEFAULT_COMMIT_TEMPLATE;
+		const steps = [...chosen_commit_template.matchAll(TEMPLATE_REGEX)];
+		const step_order = steps.map((arr) => arr[0]);
 
 		let type = '';
 		let scope = '';
@@ -148,6 +90,8 @@ export function activate(context: vscode.ExtensionContext) {
 						.catch(() => current_step--);
 					break;
 				case '<number>':
+					const head = repo.state.HEAD;
+					const issue_number = getIssueNumber(workspace_issue_regex, head);
 					await numberInputBox(issue_number, ticket_number)
 						.then((value: string) => {
 							ticket_number = value;
