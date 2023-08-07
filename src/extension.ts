@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { DEFAULT_COMMIT_TEMPLATE, DEFAULT_ISSUE_REGEX, TEMPLATE_REGEX } from './constants';
+import { DEFAULT_COMMIT_TEMPLATE, TEMPLATE_REGEX } from './constants';
 import initiateGit from './initiateGit';
 import stageFiles from './steps/stage_files/stageFiles';
 import buildCommitMessage from './buildCommitMessage';
