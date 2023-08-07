@@ -1,12 +1,9 @@
 import { FILE_NAME_REGEX } from "../../constants";
 import { QuickPickItemsType } from "../../createQuickPick";
+import { ChangesType } from "../../types/git";
 import changesQuickPick from "./changesQuickPick";
 
-export type ChangesType = {
-    uri: {
-        path: string
-    }
-};
+
 
 export default async function stageFiles(changes: ChangesType[]) {
     let changed_files: QuickPickItemsType[] = [];
