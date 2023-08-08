@@ -10,3 +10,6 @@ export const TEMPLATE_REGEX = /(<)((type|scope|emoji|number|description|body|foo
 // Default commit message structure.
 // This will affect in which order the user sees the extension prompts.
 export const DEFAULT_COMMIT_TEMPLATE = "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>";
+
+// Total number of prompts.
+export const TOTAL_STEPS = 6;
