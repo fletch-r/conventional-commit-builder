@@ -50,7 +50,22 @@
         "simpleCommit.scopes": {
           "type": "array",
           "default": [],
-          "description": "Saved Scopes"
+          "description": "Scopes that will appear as options in the scopes prompt."
+        },
+        "simpleCommit.issueRegex": {
+          "type": "string",
+          "default": "(?!.*\/)([^\\d]*)(\\d+)",
+          "description": "RegEx used to get the issue number from branch name."
+        },
+        "simpleCommit.template": {
+          "type": "string",
+          "default": "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>",
+          "description": "The format of your commit message."
+        },
+        "simpleCommit.disableEmoji": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the emoji prompt and it appearing in commit messages."
         }
       }
     },
