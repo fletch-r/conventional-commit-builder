@@ -13,7 +13,8 @@
     "simpleCommit.scopes": [
         "release",
         "settings",
-        "readme"
+        "readme",
+        "changelog"
     ],
     "simpleCommit.template": "<type><scope>: <emoji> #<number> - <description>\n\n<body>\n\n<footer>"
 }
