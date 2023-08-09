@@ -15,6 +15,7 @@ export default async function buildCommitMessage(
     repo: Repositories,
 ) {
     const workspace_issue_regex = workspace_config.get('issueRegex') as string;
+    const workspace_disable_emoji = workspace_config.get('disableEmoji') as boolean;
 
     let message_values = {
         type: '',
@@ -46,12 +47,17 @@ export default async function buildCommitMessage(
                     .catch(() => current_step--);
                 break;
             case '<emoji>':
-                await emojiQuickPick(message_values.emoji)
-                    .then((value) => {
-                        message_values.emoji = value;
-                        current_step++;
-                    })
-                    .catch(() => current_step--);
+                if (!workspace_disable_emoji) {
+                    await emojiQuickPick(message_values.emoji)
+                        .then((value) => {
+                            message_values.emoji = value;
+                            current_step++;
+                        })
+                        .catch(() => current_step--);
+                } else {
+                    message_values.emoji = '';
+                    current_step++;
+                }
                 break;
             case '<number>':
                 const head = repo.state.HEAD;

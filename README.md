@@ -61,6 +61,7 @@ Here are some of the available configuration options:
 |scopes|`[]`|Saved scopes of previous commits.|
 |issueRegex|`"(?!.*\/)([^\\d]*)(\\d+)"`|Add a custom regex if the default regex for Simple Commit doesn't automatically detect your issue number.|
 |template|`"<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>"`|The template for your commit message. You can customize your commit template to allow for your preferred commit message structure.|
+|disableEmoji| `false` | If you do not wish to have the emoji prompt show you can set this to true. The emoji prompt will be skipped and your commit message will not contain an emoji.
 
 - `<type>` - This will be replaced by the value you choose from the Type prompt. Examples, fix, feat, style.
 - `<scope>` - This will be replaced by the Scope prompt. Your scope will be incased in ().
