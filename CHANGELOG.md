@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.0] - 2023-07-19
+## [1.5.0] - 2023-08-09
+
+### Added
+
+- [#23](https://github.com/fletch-r/simple-commit/pull/23) - [`e957a26`](https://github.com/fletch-r/simple-commit/pull/23/commits/e957a26b321bf3925b4e8f996e5c0a6abdd37518) The user can now add `simpleCommit.disableEmoji` to their settings file and the emoji prompt will be skipped. This means that the final commit message won't include an emoji.
+
+## [1.4.0](https://github.com/fletch-r/simple-commit/releases/tag/v1.4.0) - 2023-07-19
 
 ### Fixed
 
