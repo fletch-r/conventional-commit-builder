@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2023-08-10
+
+### Added
+
+- [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) Issue has been renamed to Reference. This will cause `simpleCommit.template` and `simpleCommit.issueRegex` to break. For `simpleCommit.template`, `<number>` will need renaming to `<reference>`. For `simpleCommit.issueRegex`, it will need to be renamed to `simpleCommit.referenceRegex`.
+
 ## [1.5.0] - 2023-08-09
 
 ### Added
