@@ -34,8 +34,8 @@ To use Simple Commit, either:
 5. Emoji:
     - Choose an emoji to appear in your commit message. The options will appear with the emoji and a description of what the emoji represents. This allows for quick and easy identification of what the particular commit message was about without having to read the message for context.
 
-6. Number:
-    - Simple Commit should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `simpleCommit.issueRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
+6. Reference:
+    - Simple Commit should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `simpleCommit.referenceRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
 
 7. Description:
     - This should be a short description of what changes you have made and are committing.
@@ -59,7 +59,7 @@ Here are some of the available configuration options:
 |Setting|Default|Description|
 |-|-|-|
 |scopes|`[]`|Saved scopes of previous commits.|
-|issueRegex|`"(?!.*\/)([^\\d]*)(\\d+)"`|Add a custom regex if the default regex for Simple Commit doesn't automatically detect your issue number.|
+|referenceRegex|`"(?!.*\/)([^\\d]*)(\\d+)"`|Add a custom regex if the default regex for Simple Commit doesn't automatically detect your issue number.|
 |template|`"<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>"`|The template for your commit message. You can customize your commit template to allow for your preferred commit message structure.|
 |disableEmoji| `false` | If you do not wish to have the emoji prompt show you can set this to true. The emoji prompt will be skipped and your commit message will not contain an emoji.
 
