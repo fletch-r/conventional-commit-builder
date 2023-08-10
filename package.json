@@ -52,14 +52,14 @@
           "default": [],
           "description": "Scopes that will appear as options in the scopes prompt."
         },
-        "simpleCommit.issueRegex": {
+        "simpleCommit.referenceRegex": {
           "type": "string",
           "default": "(?!.*\/)([^\\d]*)(\\d+)",
-          "description": "RegEx used to get the issue number from branch name."
+          "description": "RegEx used to get the reference number from branch name."
         },
         "simpleCommit.template": {
           "type": "string",
-          "default": "<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>",
+          "default": "<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>",
           "description": "The format of your commit message."
         },
         "simpleCommit.disableEmoji": {

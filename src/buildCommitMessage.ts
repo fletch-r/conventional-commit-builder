@@ -1,10 +1,10 @@
 import { WorkspaceConfiguration } from 'vscode';
-import getIssueNumber from "./getIssueNumber";
+import getReference from "./getReference";
 import bodyInputBox from "./steps/body/bodyInputBox";
 import descriptionInputBox from "./steps/description/descriptionInputBox";
 import emojiQuickPick from "./steps/emoji/emojiQuickPick";
 import footerInputBox from "./steps/footer/footerInputBox";
-import numberInputBox from "./steps/issue_number/numberInputBox";
+import referenceInputBox from "./steps/reference/referenceInputBox";
 import chosenScope from "./steps/scope/chosenScope";
 import typeQuickPick from "./steps/type/typeQuickPick";
 import { Repositories } from './types/git';
@@ -14,14 +14,14 @@ export default async function buildCommitMessage(
     workspace_config: WorkspaceConfiguration,
     repo: Repositories,
 ) {
-    const workspace_issue_regex = workspace_config.get('issueRegex') as string;
+    const workspace_reference_regex = workspace_config.get('referenceRegex') as string;
     const workspace_disable_emoji = workspace_config.get('disableEmoji') as boolean;
 
     let message_values = {
         type: '',
         scope: '',
         emoji: '',
-        ticket_number: '',
+        reference: '',
         description: '',
         body: '',
         footer: ''
@@ -59,12 +59,12 @@ export default async function buildCommitMessage(
                     current_step++;
                 }
                 break;
-            case '<number>':
+            case '<reference>':
                 const head = repo.state.HEAD;
-                const issue_number = getIssueNumber(workspace_issue_regex, head);
-                await numberInputBox(issue_number, message_values.ticket_number)
+                const reference = getReference(workspace_reference_regex, head);
+                await referenceInputBox(reference, message_values.reference)
                     .then((value: string) => {
-                        message_values.ticket_number = value;
+                        message_values.reference = value;
                         current_step++;
                     })
                     .catch(() => current_step--);

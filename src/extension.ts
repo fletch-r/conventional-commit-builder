@@ -51,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
 			type,
 			scope,
 			emoji,
-			ticket_number,
+			reference,
 			description,
 			body,
 			footer
@@ -62,12 +62,16 @@ export function activate(context: vscode.ExtensionContext) {
 			.replace('<type>', type)
 			.replace('<scope>', scope ? `(${scope})` : '')
 			.replace('<emoji>', emoji)
-			.replace('<number>', ticket_number)
+			.replace('<reference>', reference)
 			.replace('<description>', description)
 			.replace('<body>', body)
 			.replace('<footer>', footer);
 
 		console.log('Commit Message:', `\n\n${commit_message}`);
+
+		// await vscode.commands.executeCommand('workbench.view.scm');
+		// // How to get commit message into the Source Control input box
+		// repo.inputBox.value = commit_message;
 
 		// === COMMIT ===
 		repo.commit(commit_message)

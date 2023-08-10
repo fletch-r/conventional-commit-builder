@@ -1,4 +1,4 @@
 /**
- * Supported repositories. Used when getting the issue number.
+ * Supported repositories. Used when getting the reference.
  */
 export type Repositories = "GitHub" | "BitBucket";
