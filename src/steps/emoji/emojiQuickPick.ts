@@ -1,3 +1,5 @@
+import { WorkspaceConfiguration } from 'vscode';
+
 import createQuickPick from '../../createQuickPick';
 const gitmojis: {
     $schema: string,
@@ -10,13 +12,17 @@ const gitmojis: {
     }[];
 } = require('../../vendors/gitmojis.json');
 
-export default async function emojiQuickPick(exitingEmoji: string): Promise<string> {
+export default async function emojiQuickPick(exitingEmoji: string, workspace_config: WorkspaceConfiguration): Promise<string> {
+    const workspace_commit_emojiFilter: "description" | "code" = workspace_config.get('emojiFilter') as "description" | "code";
+
     const emojis = gitmojis.gitmojis;
+
+    const isCodeOrDefault = workspace_commit_emojiFilter === 'code' || !workspace_commit_emojiFilter;
 
     const items = emojis.map((obj) => ({
         label: obj.emoji,
-        description: obj.code,
-        detail: obj.description
+        description: isCodeOrDefault ? obj.code : obj.description,
+        detail: isCodeOrDefault ? obj.description : obj.code
     }));
 
     const selected_emoji = await createQuickPick(
@@ -28,5 +34,7 @@ export default async function emojiQuickPick(exitingEmoji: string): Promise<stri
         exitingEmoji,
     );
 
-    return selected_emoji[0].description || '';
+    const code = isCodeOrDefault ? selected_emoji[0].description : selected_emoji[0].detail;
+
+    return code || '';
 }
