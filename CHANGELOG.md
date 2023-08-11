@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2023-08-11
+
+### Added
+
+- [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this as in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
+
 ## [2.0.0] - 2023-08-10
 
 ### Added
