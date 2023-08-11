@@ -48,7 +48,7 @@ export default async function buildCommitMessage(
                 break;
             case '<emoji>':
                 if (!workspace_disable_emoji) {
-                    await emojiQuickPick(message_values.emoji)
+                    await emojiQuickPick(message_values.emoji, workspace_config)
                         .then((value) => {
                             message_values.emoji = value;
                             current_step++;
