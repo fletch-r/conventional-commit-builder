@@ -3,7 +3,7 @@
   "icon": "assets/icon.png",
   "displayName": "Simple Commit",
   "description": "Simple Commit helps you write and format your commit messages.",
-  "publisher": "fletch-r",
+  "publisher": "0xATHERIS",
   "author": "fletch-r",
   "repository": {
     "type": "git",
@@ -66,6 +66,11 @@
           "type": "boolean",
           "default": false,
           "description": "Disable the emoji prompt and it appearing in commit messages."
+        },
+        "simpleCommit.emojiFilter": {
+          "type": "string",
+          "default": "code",
+          "description": "By what attribute you filter the emoji list."
         }
       }
     },
