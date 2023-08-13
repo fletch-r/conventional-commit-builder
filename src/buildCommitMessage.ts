@@ -15,7 +15,12 @@ export default async function buildCommitMessage(
     repo: Repositories,
 ) {
     const workspace_reference_regex = workspace_config.get('referenceRegex') as string;
+
     const workspace_disable_emoji = workspace_config.get('disableEmoji') as boolean;
+    const workspace_disable_reference = workspace_config.get('disableReference') as boolean;
+    const workspace_disable_description = workspace_config.get('disableDescription') as boolean;
+    const workspace_disable_body = workspace_config.get('disableBody') as boolean;
+    const workspace_disable_footer = workspace_config.get('disableFooter') as boolean;
 
     let message_values = {
         type: '',
@@ -60,38 +65,58 @@ export default async function buildCommitMessage(
                 }
                 break;
             case '<reference>':
-                const head = repo.state.HEAD;
-                const reference = getReference(workspace_reference_regex, head);
-                await referenceInputBox(reference, message_values.reference)
-                    .then((value: string) => {
-                        message_values.reference = value;
-                        current_step++;
-                    })
-                    .catch(() => current_step--);
+                if (!workspace_disable_reference) {
+                    const head = repo.state.HEAD;
+                    const reference = getReference(workspace_reference_regex, head);
+                    await referenceInputBox(reference, message_values.reference)
+                        .then((value: string) => {
+                            message_values.reference = value;
+                            current_step++;
+                        })
+                        .catch(() => current_step--);
+                } else {
+                    message_values.reference = '';
+                    current_step++;
+                }
                 break;
             case '<description>':
-                await descriptionInputBox(message_values.description)
-                    .then((value: string) => {
-                        message_values.description = value;
-                        current_step++;
-                    })
-                    .catch(() => current_step--);
+                if (!workspace_disable_description) {
+                    await descriptionInputBox(message_values.description)
+                        .then((value: string) => {
+                            message_values.description = value;
+                            current_step++;
+                        })
+                        .catch(() => current_step--);
+                } else {
+                    message_values.description = '';
+                    current_step++;
+                }
                 break;
             case '<body>':
-                await bodyInputBox(message_values.body)
-                    .then((value: string) => {
-                        message_values.body = value;
-                        current_step++;
-                    })
-                    .catch(() => current_step--);
+                if (!workspace_disable_body) {
+                    await bodyInputBox(message_values.body)
+                        .then((value: string) => {
+                            message_values.body = value;
+                            current_step++;
+                        })
+                        .catch(() => current_step--);
+                } else {
+                    message_values.body = '';
+                    current_step++;
+                }
                 break;
             case '<footer>':
-                await footerInputBox(message_values.footer)
-                    .then((value: string) => {
-                        message_values.footer = value;
-                        current_step++;
-                    })
-                    .catch(() => current_step--);
+                if (!workspace_disable_footer) {
+                    await footerInputBox(message_values.footer)
+                        .then((value: string) => {
+                            message_values.footer = value;
+                            current_step++;
+                        })
+                        .catch(() => current_step--);
+                } else {
+                    message_values.footer = '';
+                    current_step++;
+                }
                 break;
             default:
                 break;
