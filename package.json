@@ -67,6 +67,26 @@
           "default": false,
           "description": "Disable the emoji prompt and it appearing in commit messages."
         },
+        "simpleCommit.disableReference": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the reference prompt and it appearing in commit messages."
+        },
+        "simpleCommit.disableDescription": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the description prompt and it appearing in commit messages."
+        },
+        "simpleCommit.disableBody": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the body prompt and it appearing in commit messages."
+        },
+        "simpleCommit.disableFooter": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the footer prompt and it appearing in commit messages."
+        },
         "simpleCommit.emojiFilter": {
           "type": "string",
           "default": "code",
