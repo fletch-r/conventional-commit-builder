@@ -70,19 +70,24 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log('Commit Message:', `\n\n${commit_message}`);
 
 		// === SHOW COMMIT MESSAGE IN SCM ===
+		const workspace_auto_commit = workspace_config.get<boolean>('autoCommit');
 		const workspace_show_commit = workspace_config.get<boolean>('showCommit');
-		if (workspace_show_commit) {
+
+		// if autoCommit is true then the commit message in the SCM will disappear straight away so no point doing it.
+		if (workspace_show_commit && !workspace_auto_commit) {
 			await vscode.commands.executeCommand('workbench.view.scm');
 			repo.inputBox.value = commit_message;
 		}
 
 		// === COMMIT ===
-		repo.commit(commit_message)
-			.then(() => vscode.window.showInformationMessage(commit_message))
-			.catch((err: RepoCommitError) => {
-				console.error(err);
-				vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
-			});
+		if (workspace_auto_commit) {
+			repo.commit(commit_message)
+				.then(() => vscode.window.showInformationMessage(commit_message))
+				.catch((err: RepoCommitError) => {
+					console.error(err);
+					vscode.window.showInformationMessage(`${err.message}\n\n${err.stdout}`);
+				});
+		}
 	});
 
 	context.subscriptions.push(disposable);

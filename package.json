@@ -96,6 +96,11 @@
           "type": "boolean",
           "default": false,
           "description": "Show your commit message within the Source Control tab."
+        },
+        "simpleCommit.autoCommit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically commit your message when finished answering prompts."
         }
       }
     },
