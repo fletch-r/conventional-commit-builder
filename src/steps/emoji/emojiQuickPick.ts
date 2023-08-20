@@ -13,7 +13,7 @@ const gitmojis: {
 } = require('../../vendors/gitmojis.json');
 
 export default async function emojiQuickPick(exitingEmoji: string, workspace_config: WorkspaceConfiguration): Promise<string> {
-    const workspace_commit_emojiFilter: "description" | "code" = workspace_config.get('emojiFilter') as "description" | "code";
+    const workspace_commit_emojiFilter = workspace_config.get<"description" | "code">('emojiFilter');
 
     const emojis = gitmojis.gitmojis;
 

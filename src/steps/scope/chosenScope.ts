@@ -8,7 +8,8 @@ export default async function chosenScope(
     existing_value: string
 ): Promise<string> {
     return new Promise((resolve, reject) => {
-        const saved_scopes: string[] = workspace_config.get('scopes') as unknown as string[];
+        const config_scopes = workspace_config.get<string[]>('scopes');
+        const saved_scopes = config_scopes ?? [];
 
         scopeQuickPick(saved_scopes, existing_value)
             .then(async (value) => {

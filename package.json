@@ -91,6 +91,11 @@
           "type": "string",
           "default": "code",
           "description": "By what attribute you filter the emoji list."
+        },
+        "simpleCommit.showCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show your commit message within the Source Control tab."
         }
       }
     },

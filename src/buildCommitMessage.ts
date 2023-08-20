@@ -14,13 +14,13 @@ export default async function buildCommitMessage(
     workspace_config: WorkspaceConfiguration,
     repo: Repositories,
 ) {
-    const workspace_reference_regex = workspace_config.get('referenceRegex') as string;
+    const workspace_reference_regex = workspace_config.get<string>('referenceRegex');
 
-    const workspace_disable_emoji = workspace_config.get('disableEmoji') as boolean;
-    const workspace_disable_reference = workspace_config.get('disableReference') as boolean;
-    const workspace_disable_description = workspace_config.get('disableDescription') as boolean;
-    const workspace_disable_body = workspace_config.get('disableBody') as boolean;
-    const workspace_disable_footer = workspace_config.get('disableFooter') as boolean;
+    const workspace_disable_emoji = workspace_config.get<boolean>('disableEmoji');
+    const workspace_disable_reference = workspace_config.get<boolean>('disableReference');
+    const workspace_disable_description = workspace_config.get<boolean>('disableDescription');
+    const workspace_disable_body = workspace_config.get<boolean>('disableBody');
+    const workspace_disable_footer = workspace_config.get<boolean>('disableFooter');
 
     let message_values = {
         type: '',

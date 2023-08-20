@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
 
 		// === WORKSPACE EXTENSION VALUES ===
-		const workspace_commit_template = workspace_config.get('template') as string;
+		const workspace_commit_template = workspace_config.get<string>('template');
 
 		// === INITIATE GIT ===
 		const repo = initiateGit();
@@ -69,9 +69,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 		console.log('Commit Message:', `\n\n${commit_message}`);
 
-		// await vscode.commands.executeCommand('workbench.view.scm');
-		// // How to get commit message into the Source Control input box
-		// repo.inputBox.value = commit_message;
+		// === SHOW COMMIT MESSAGE IN SCM ===
+		const workspace_show_commit = workspace_config.get<boolean>('showCommit');
+		if (workspace_show_commit) {
+			await vscode.commands.executeCommand('workbench.view.scm');
+			repo.inputBox.value = commit_message;
+		}
 
 		// === COMMIT ===
 		repo.commit(commit_message)

@@ -14,6 +14,9 @@ export type Repositories = {
     };
     add: (file_paths: (string | undefined)[]) => void;
     commit: (message: string) => Promise<void>;
+    inputBox: {
+        value: string;
+    };
 };
 
 export type GetAPI = {
