@@ -1,6 +1,6 @@
 <img src="assets/SimpleCommitBanner.png" alt="simple commit" width="75%">
 
-### Simple Commit is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages.
+### Simple Commit is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages
 
 ## Features
 
@@ -13,6 +13,7 @@
 ## Usage
 
 To use Simple Commit, either:
+
 1. Start Simple Commit:
     - Click the Simple Commit icon in the Source Control tab which is usually to the right of the refresh icon.
     - Open the command palette in VSCode (usually with `Ctrl + Shift + P` or `Cmd + Shift + P`), type "Simple Commit" and select the appropriate command.
@@ -77,4 +78,5 @@ Here are some of the available configuration options:
 If you would like to contribute to Simple Commit, please fork the repository and submit a pull request. Contributions are always welcome!
 
 ## License
+
 Simple Commit is licensed under the MIT License.
