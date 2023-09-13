@@ -64,6 +64,7 @@ Here are some of the available configuration options:
 |template|`"<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>"`|The template for your commit message. You can customize your commit template to allow for your preferred commit message structure.|
 |disableEmoji|`false`| If you do not wish to have the emoji prompt show you can set this to true. The emoji prompt will be skipped and your commit message will not contain an emoji.
 |emojiFilter|`code`|You can set the `emojiFilter` to either `"code" | "description"` and this will let you filter the list of emojis in the emoji prompt by its code or description depending on what you choose.
+|newLine|`"\\n"`|The characters entered here will be replaced with a new line within the commit message. This only applies to the Description, Body and Footer prompts.
 
 - `<type>` - This will be replaced by the value you choose from the Type prompt. Examples, fix, feat, style.
 - `<scope>` - This will be replaced by the Scope prompt. Your scope will be incased in ().
