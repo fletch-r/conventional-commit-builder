@@ -52,20 +52,23 @@ export default async function buildCommitMessage(
                     .catch(() => current_step--);
                 break;
             case '<emoji>':
-                if (!workspace_disable_emoji) {
+                if (workspace_disable_emoji) {
+                    message_values.emoji = '';
+                    current_step++;
+                } else {
                     await emojiQuickPick(message_values.emoji, workspace_config)
                         .then((value) => {
                             message_values.emoji = value;
                             current_step++;
                         })
                         .catch(() => current_step--);
-                } else {
-                    message_values.emoji = '';
-                    current_step++;
                 }
                 break;
             case '<reference>':
-                if (!workspace_disable_reference) {
+                if (workspace_disable_reference) {
+                    message_values.reference = '';
+                    current_step++;
+                } else {
                     const head = repo.state.HEAD;
                     const reference = getReference(workspace_reference_regex, head);
                     await referenceInputBox(reference, message_values.reference)
@@ -74,48 +77,45 @@ export default async function buildCommitMessage(
                             current_step++;
                         })
                         .catch(() => current_step--);
-                } else {
-                    message_values.reference = '';
-                    current_step++;
                 }
                 break;
             case '<description>':
-                if (!workspace_disable_description) {
+                if (workspace_disable_description) {
+                    message_values.description = '';
+                    current_step++;
+                } else {
                     await descriptionInputBox(message_values.description)
                         .then((value: string) => {
                             message_values.description = value;
                             current_step++;
                         })
                         .catch(() => current_step--);
-                } else {
-                    message_values.description = '';
-                    current_step++;
                 }
                 break;
             case '<body>':
-                if (!workspace_disable_body) {
+                if (workspace_disable_body) {
+                    message_values.body = '';
+                    current_step++;
+                } else {
                     await bodyInputBox(message_values.body)
                         .then((value: string) => {
                             message_values.body = value;
                             current_step++;
                         })
                         .catch(() => current_step--);
-                } else {
-                    message_values.body = '';
-                    current_step++;
                 }
                 break;
             case '<footer>':
-                if (!workspace_disable_footer) {
+                if (workspace_disable_footer) {
+                    message_values.footer = '';
+                    current_step++;
+                } else {
                     await footerInputBox(message_values.footer)
                         .then((value: string) => {
                             message_values.footer = value;
                             current_step++;
                         })
                         .catch(() => current_step--);
-                } else {
-                    message_values.footer = '';
-                    current_step++;
                 }
                 break;
             default:
