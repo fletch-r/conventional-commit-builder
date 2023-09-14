@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { DEFAULT_COMMIT_TEMPLATE, TEMPLATE_REGEX } from './constants';
+import { DEFAULT_COMMIT_TEMPLATE, DEFAULT_NEWLINE, TEMPLATE_REGEX } from './constants';
 import initiateGit from './initiateGit';
 import stageFiles from './steps/stage_files/stageFiles';
 import buildCommitMessage from './buildCommitMessage';
@@ -57,15 +57,23 @@ export function activate(context: vscode.ExtensionContext) {
 			footer
 		} = await buildCommitMessage(step_order, workspace_config, repo);
 
+		// Replaces any \n (by default) the user enters with escape character so new line is applied in the commit message.
+		const workspace_new_line = workspace_config.get<string>('newLine');
+		const chosen_new_line = workspace_new_line ? workspace_new_line : DEFAULT_NEWLINE;
+
+		const descriptionWithNewlines = description.replace(chosen_new_line, '\n');
+		const bodyWithNewlines = body.replace(chosen_new_line, '\n');
+		const footerWithNewlines = footer.replace(chosen_new_line, '\n');
+
 		// === BUILDING COMMIT MESSAGE ===
 		const commit_message = chosen_commit_template
 			.replace('<type>', type)
 			.replace('<scope>', scope ? `(${scope})` : '')
 			.replace('<emoji>', emoji)
 			.replace('<reference>', reference)
-			.replace('<description>', description)
-			.replace('<body>', body)
-			.replace('<footer>', footer);
+			.replace('<description>', descriptionWithNewlines)
+			.replace('<body>', bodyWithNewlines)
+			.replace('<footer>', footerWithNewlines);
 
 		console.log('Commit Message:', `\n\n${commit_message}`);
 

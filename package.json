@@ -62,6 +62,11 @@
           "default": "<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>",
           "description": "The format of your commit message."
         },
+        "simpleCommit.newLine": {
+          "type": "string",
+          "default": "\\n",
+          "description": "The characters entered here will be replaced with a new line within the commit message.\nThis only applies to the Description, Body and Footer prompts.\nIf editing in workspace settings, you will need to enter an escape character (\\), if through user settings then VSCode does it automatically."
+        },
         "simpleCommit.emojiFilter": {
           "type": "string",
           "default": "code",
