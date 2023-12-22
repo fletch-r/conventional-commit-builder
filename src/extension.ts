@@ -61,9 +61,11 @@ export function activate(context: vscode.ExtensionContext) {
 		const workspace_new_line = workspace_config.get<string>('newLine');
 		const chosen_new_line = workspace_new_line ? workspace_new_line : DEFAULT_NEWLINE;
 
-		const descriptionWithNewlines = description.replace(chosen_new_line, '\n');
-		const bodyWithNewlines = body.replace(chosen_new_line, '\n');
-		const footerWithNewlines = footer.replace(chosen_new_line, '\n');
+		const newLineRegex = new RegExp(chosen_new_line, 'gi');
+
+		const descriptionWithNewlines = description.replace(newLineRegex, '\n');
+		const bodyWithNewlines = body.replace(newLineRegex, '\n');
+		const footerWithNewlines = footer.replace(newLineRegex, '\n');
 
 		// === BUILDING COMMIT MESSAGE ===
 		const commit_message = chosen_commit_template
