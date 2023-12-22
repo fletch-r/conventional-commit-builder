@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-const TOTAL_STEPS = 6;
+import { TOTAL_STEPS } from './constants';
 
 type InputTypes = {
 	title: string;

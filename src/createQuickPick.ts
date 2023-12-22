@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import { Writable } from './types/Writable';
-
-const TOTAL_STEPS = 6;
+import { TOTAL_STEPS } from './constants';
 
 export type QuickPickItemsType = {
 	label: string;
