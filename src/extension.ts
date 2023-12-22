@@ -73,7 +73,8 @@ export function activate(context: vscode.ExtensionContext) {
 			.replace('<reference>', reference)
 			.replace('<description>', descriptionWithNewlines)
 			.replace('<body>', bodyWithNewlines)
-			.replace('<footer>', footerWithNewlines);
+			.replace('<footer>', footerWithNewlines)
+			.trim();
 
 		console.log('Commit Message:', `\n\n${commit_message}`);
 
