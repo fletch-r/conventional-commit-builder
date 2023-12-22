@@ -5,11 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2023-08-13
+
+### Added
+
+- **2023-09-14** - [#33](https://github.com/fletch-r/simple-commit/pull/33) - [`1271c25`](https://github.com/fletch-r/simple-commit/pull/31/commits/1271c2595d7a96467d53937b60628894d3a26eec) User can change what they deem to be a new line within the template. This allows for custom new line, by default `\n` in the template will be replaced with a new line. The user can set this in their `settings.json` like so, `"simpleCommit.newLine": "CustomNewLine"`, this will replace the any `CustomNewLine` within the message string with a new line.
+
+- **2023-08-20** - [#32](https://github.com/fletch-r/simple-commit/pull/32) - [`c77e5e5`](https://github.com/fletch-r/simple-commit/pull/31/commits/c77e5e50b841eb3862779a74591922b4e3cb8450) When this is set to false, the commit message create won't get automatically committed. This, when paired with `showCommit`, allows the user to double check their message before committing. The user can set this in their `settings.json` like so, `"simpleCommit.autoCommit": false`.
+
+- **2023-08-20** - [#31](https://github.com/fletch-r/simple-commit/pull/31) - [`fadfef1`](https://github.com/fletch-r/simple-commit/pull/31/commits/fadfef15f15394315d37e78a44d1d3f305d1cd69) This change shows the commit message created by the prompts in the SCM tab's input box. The user can set this in their `settings.json` like so, `"simpleCommit.showCommit": true`.
+
+- **2023-08-13** - [#30](https://github.com/fletch-r/simple-commit/pull/30) - [`9ae6c15`](https://github.com/fletch-r/simple-commit/pull/30/commits/9ae6c15427e00d603829c492e154adce84265135) The user now has the option to hide any prompt. The user can set this in their `settings.json` like so, `"simpleCommit.disableDescription": true`, this will stop the Description prompt from showing.
+
 ## [2.1.0] - 2023-08-11
 
 ### Added
 
-- [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this as in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
+- [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
 
 ## [2.0.0] - 2023-08-10
 
@@ -46,7 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [#11](https://github.com/fletch-r/simple-commit/pull/12) - [`41c7afc`](https://github.com/fletch-r/simple-commit/pull/12/commits/41c7afcc2658494c8b456f39bf8e9daf6b8fff34) If you haven't staged any changes a prompt will ask you to select files to stage. Before Simple Commit asks you for your commit details it will ask you to chose changes to stage then once you have chosen it will continue with the rest of the prompts.
-
 
 ## [1.0.1](https://github.com/fletch-r/simple-commit/releases/tag/v1.0.1) - 2023-04-06
 
