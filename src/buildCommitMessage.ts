@@ -8,9 +8,11 @@ import referenceInputBox from "./steps/reference/referenceInputBox";
 import chosenScope from "./steps/scope/chosenScope";
 import typeQuickPick from "./steps/type/typeQuickPick";
 import { Repositories } from './types/git';
+import { TextTransform } from './utils/TextTransform';
 
 export default async function buildCommitMessage(
     step_order: string[],
+    transform_steps: Map<string, string>,
     workspace_config: WorkspaceConfiguration,
     repo: Repositories,
 ) {
@@ -122,6 +124,15 @@ export default async function buildCommitMessage(
                 break;
         }
     }
+
+    transform_steps.forEach((func, step) => {
+        const prompt_value = message_values[step.slice(1,-1) as keyof typeof message_values];
+
+        const new_message = new TextTransform();
+        const transformed = new_message.compute(prompt_value, func);
+
+        message_values[step.slice(1,-1) as keyof typeof message_values] = transformed;
+    });
 
     return message_values;
 }
