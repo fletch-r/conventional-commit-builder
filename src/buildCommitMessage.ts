@@ -125,6 +125,7 @@ export default async function buildCommitMessage(
         }
     }
 
+    // === RUN FUNCTIONS TO TRANSFORM PROMPT TEXT ===
     steps_to_transform.forEach((func, step) => {
         const promptWithNoArrows = step.slice(1,-1) as keyof typeof message_values;
         const prompt_value = message_values[promptWithNoArrows];
