@@ -80,6 +80,16 @@
           ],
           "description": "By what attribute you filter the emoji list."
         },
+        "simpleCommit.showCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show your commit message within the Source Control tab."
+        },
+        "simpleCommit.autoCommit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically commit your message when finished answering prompts."
+        },
         "simpleCommit.disableEmoji": {
           "type": "boolean",
           "default": false,
@@ -90,11 +100,6 @@
           "default": false,
           "description": "Disable the reference prompt and it appearing in commit messages."
         },
-        "simpleCommit.disableDescription": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disable the description prompt and it appearing in commit messages."
-        },
         "simpleCommit.disableBody": {
           "type": "boolean",
           "default": false,
@@ -104,16 +109,6 @@
           "type": "boolean",
           "default": false,
           "description": "Disable the footer prompt and it appearing in commit messages."
-        },
-        "simpleCommit.showCommit": {
-          "type": "boolean",
-          "default": false,
-          "description": "Show your commit message within the Source Control tab."
-        },
-        "simpleCommit.autoCommit": {
-          "type": "boolean",
-          "default": true,
-          "description": "Automatically commit your message when finished answering prompts."
         }
       }
     },
