@@ -59,7 +59,7 @@
         },
         "simpleCommit.template": {
           "type": "string",
-          "default": "<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>",
+          "default": "<type><scope>: <emoji> <reference> - <description>\\n\\n<body>\\n\\n<footer>",
           "description": "The format of your commit message."
         },
         "simpleCommit.newLine": {
