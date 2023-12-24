@@ -3,7 +3,7 @@ import { DEFAULT_COMMIT_TEMPLATE, DEFAULT_NEWLINE, TEMPLATE_REGEX } from './cons
 import initiateGit from './initiateGit';
 import stageFiles from './steps/stage_files/stageFiles';
 import buildCommitMessage from './buildCommitMessage';
-import { TextTransform } from './utils/TextTransform';
+import { TransformText } from './utils/TransformText';
 
 // Example commit
 /**
@@ -47,15 +47,17 @@ export function activate(context: vscode.ExtensionContext) {
 		const steps = [...chosen_commit_template.matchAll(TEMPLATE_REGEX)];
 		const step_order = steps.map((arr) => arr[0]);
 
-		const text_transform = new TextTransform();
+		// === USERS ENTERED VALUES ===
+		const text_transform = new TransformText();
 		const {
-			transform_steps,
-			commit_message_template
+			// Map<PromptToTransform, TransformFunctionName>
+			steps_to_transform,
+			// Commit message template without any TransformText functions
+			cleaned_commit_template
 		} = text_transform.steps(chosen_commit_template);
 
-		chosen_commit_template = commit_message_template;
+		chosen_commit_template = cleaned_commit_template;
 
-		// === USERS ENTERED VALUES ===
 		const {
 			type,
 			scope,
@@ -64,7 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
 			description,
 			body,
 			footer
-		} = await buildCommitMessage(step_order, transform_steps, workspace_config, repo);
+		} = await buildCommitMessage(step_order, steps_to_transform, workspace_config, repo);
 
 		// Replaces any \n (by default) the user enters with escape character so new line is applied in the commit message.
 		const workspace_new_line = workspace_config.get<string>('newLine');
@@ -78,6 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// === BUILDING COMMIT MESSAGE ===
 		const commit_message = chosen_commit_template
+			.replace(/\\n/g, '\n')
 			.replace('<type>', type)
 			.replace('<scope>', scope ? `(${scope})` : '')
 			.replace('<emoji>', emoji)
