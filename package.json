@@ -14,7 +14,7 @@
     "url": "https://github.com/fletch-r/simple-commit/issues"
   },
   "homepage": "https://github.com/fletch-r/simple-commit",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "engines": {
     "vscode": "^1.76.0"
   },
