@@ -20,7 +20,6 @@ export default async function buildCommitMessage(
 
     const workspace_disable_emoji = workspace_config.get<boolean>('disableEmoji');
     const workspace_disable_reference = workspace_config.get<boolean>('disableReference');
-    const workspace_disable_description = workspace_config.get<boolean>('disableDescription');
     const workspace_disable_body = workspace_config.get<boolean>('disableBody');
     const workspace_disable_footer = workspace_config.get<boolean>('disableFooter');
 
@@ -82,17 +81,12 @@ export default async function buildCommitMessage(
                 }
                 break;
             case '<description>':
-                if (workspace_disable_description) {
-                    message_values.description = '';
-                    current_step++;
-                } else {
-                    await descriptionInputBox(message_values.description)
-                        .then((value: string) => {
-                            message_values.description = value;
-                            current_step++;
-                        })
-                        .catch(() => current_step--);
-                }
+                await descriptionInputBox(message_values.description)
+                    .then((value: string) => {
+                        message_values.description = value;
+                        current_step++;
+                    })
+                    .catch(() => current_step--);
                 break;
             case '<body>':
                 if (workspace_disable_body) {
