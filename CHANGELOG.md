@@ -5,13 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.2.0] - 2023-08-13
+## [2.3.0] - 2023-12-25
 
 ### Added
 
-- **2023-09-14** - [#33](https://github.com/fletch-r/simple-commit/pull/33) - [`1271c25`](https://github.com/fletch-r/simple-commit/pull/31/commits/1271c2595d7a96467d53937b60628894d3a26eec) User can change what they deem to be a new line within the template. This allows for custom new line, by default `\n` in the template will be replaced with a new line. The user can set this in their `settings.json` like so, `"simpleCommit.newLine": "CustomNewLine"`, this will replace the any `CustomNewLine` within the message string with a new line.
+- **2023-12-25** - [#41](https://github.com/fletch-r/simple-commit/pull/41) - [`db03e94`](https://github.com/fletch-r/simple-commit/pull/41/commits/db03e941a32521ebb65b8e005142e4ba65b40c5f) User can wrap a prompt step in the `template` setting with a function, for example, `Uppercase()` leading to the text entered into the wrapped prompt to be converted into all capital letters in the commit message.
 
-- **2023-08-20** - [#32](https://github.com/fletch-r/simple-commit/pull/32) - [`c77e5e5`](https://github.com/fletch-r/simple-commit/pull/31/commits/c77e5e50b841eb3862779a74591922b4e3cb8450) When this is set to false, the commit message create won't get automatically committed. This, when paired with `showCommit`, allows the user to double check their message before committing. The user can set this in their `settings.json` like so, `"simpleCommit.autoCommit": false`.
+### Fixed
+
+- **2023-12-22** - [#37](https://github.com/fletch-r/simple-commit/pull/37) - [`8c47066`](https://github.com/fletch-r/simple-commit/pull/37/commits/8c47066c6b430987f18aaccba17f84cc2522460f) Fixed issue where new lines were remaining if body and footer was skipped. Leading to trailing new lines.
+
+- **2023-12-22** - [#39](https://github.com/fletch-r/simple-commit/pull/39) - [`a38f757`](https://github.com/fletch-r/simple-commit/pull/39/commits/a38f75734b592ddd61e44ab56a054c15ba76255f) Fixed issue where only the first `newLine` value was being converted to a new line and didn't convert `newLine`'s that weren't surrounded by spaces.
+
+## [2.2.0] - 2023-12-22
+
+### Added
+
+- **2023-09-14** - [#34](https://github.com/fletch-r/simple-commit/pull/34) - [`1271c25`](https://github.com/fletch-r/simple-commit/pull/34/commits/1271c2595d7a96467d53937b60628894d3a26eec) User can change what they deem to be a new line within the template. This allows for custom new line, by default `\n` in the template will be replaced with a new line. The user can set this in their `settings.json` like so, `"simpleCommit.newLine": "CustomNewLine"`, this will replace the any `CustomNewLine` within the message string with a new line.
+
+- **2023-08-20** - [#32](https://github.com/fletch-r/simple-commit/pull/32) - [`c77e5e5`](https://github.com/fletch-r/simple-commit/pull/32/commits/c77e5e50b841eb3862779a74591922b4e3cb8450) When this is set to false, the commit message create won't get automatically committed. This, when paired with `showCommit`, allows the user to double check their message before committing. The user can set this in their `settings.json` like so, `"simpleCommit.autoCommit": false`.
 
 - **2023-08-20** - [#31](https://github.com/fletch-r/simple-commit/pull/31) - [`fadfef1`](https://github.com/fletch-r/simple-commit/pull/31/commits/fadfef15f15394315d37e78a44d1d3f305d1cd69) This change shows the commit message created by the prompts in the SCM tab's input box. The user can set this in their `settings.json` like so, `"simpleCommit.showCommit": true`.
 
@@ -21,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
+- **2023-08-11** - [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
 
 ## [2.0.0] - 2023-08-10
 
