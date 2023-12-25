@@ -59,12 +59,12 @@
         },
         "simpleCommit.template": {
           "type": "string",
-          "default": "<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>",
+          "default": "<type><scope>: <emoji> <reference> - <description>\\n\\n<body>\\n\\n<footer>",
           "description": "The format of your commit message."
         },
         "simpleCommit.newLine": {
           "type": "string",
-          "default": "\\n",
+          "default": "\\\\n",
           "description": "The characters entered here will be replaced with a new line within the commit message.\nThis only applies to the Description, Body and Footer prompts.\nIf editing in workspace settings, you will need to enter an escape character (\\), if through user settings then VSCode does it automatically."
         },
         "simpleCommit.emojiFilter": {
@@ -80,6 +80,16 @@
           ],
           "description": "By what attribute you filter the emoji list."
         },
+        "simpleCommit.showCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show your commit message within the Source Control tab."
+        },
+        "simpleCommit.autoCommit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically commit your message when finished answering prompts."
+        },
         "simpleCommit.disableEmoji": {
           "type": "boolean",
           "default": false,
@@ -90,11 +100,6 @@
           "default": false,
           "description": "Disable the reference prompt and it appearing in commit messages."
         },
-        "simpleCommit.disableDescription": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disable the description prompt and it appearing in commit messages."
-        },
         "simpleCommit.disableBody": {
           "type": "boolean",
           "default": false,
@@ -104,16 +109,6 @@
           "type": "boolean",
           "default": false,
           "description": "Disable the footer prompt and it appearing in commit messages."
-        },
-        "simpleCommit.showCommit": {
-          "type": "boolean",
-          "default": false,
-          "description": "Show your commit message within the Source Control tab."
-        },
-        "simpleCommit.autoCommit": {
-          "type": "boolean",
-          "default": true,
-          "description": "Automatically commit your message when finished answering prompts."
         }
       }
     },

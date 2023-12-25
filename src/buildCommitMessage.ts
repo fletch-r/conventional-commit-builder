@@ -8,9 +8,11 @@ import referenceInputBox from "./steps/reference/referenceInputBox";
 import chosenScope from "./steps/scope/chosenScope";
 import typeQuickPick from "./steps/type/typeQuickPick";
 import { Repositories } from './types/git';
+import { TransformText } from './utils/TransformText';
 
 export default async function buildCommitMessage(
     step_order: string[],
+    steps_to_transform: Map<string, string>,
     workspace_config: WorkspaceConfiguration,
     repo: Repositories,
 ) {
@@ -122,6 +124,17 @@ export default async function buildCommitMessage(
                 break;
         }
     }
+
+    // === RUN FUNCTIONS TO TRANSFORM PROMPT TEXT ===
+    steps_to_transform.forEach((func, step) => {
+        const promptWithNoArrows = step.slice(1,-1) as keyof typeof message_values;
+        const prompt_value = message_values[promptWithNoArrows];
+
+        const new_message = new TransformText();
+        const transformed = new_message.compute(prompt_value, func);
+
+        message_values[promptWithNoArrows] = transformed;
+    });
 
     return message_values;
 }
