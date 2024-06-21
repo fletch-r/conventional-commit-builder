@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.2] - 2024-06-21
+
+### Added
+
+- 2024-06-21 - [e2c93be](https://github.com/fletch-r/simple-commit/commit/e2c93be00c517fec429ded4666be0b266862f755) Updated extension commands to make the name of the extension.
+
+## [2.4.1] - 2024-06-21
+
+### Added
+
+- 2024-06-21 - [bd3b20d](https://github.com/fletch-r/simple-commit/commit/bd3b20d46fcf2f6413f5658ea0be701556d8efbb) Updated `README.md`.
+
 ## [2.4.0] - 2024-06-21
 
 ### Fixed
