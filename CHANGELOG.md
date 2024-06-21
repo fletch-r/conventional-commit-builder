@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2024-06-21
+
+### Fixed
+
+- 2024-06-21 - [[#42](https://github.com/fletch-r/simple-commit/issues/42)] - [068dd71](https://github.com/fletch-r/simple-commit/commit/068dd71eed814a2f6e5364d26dbcdf2f34d440ed) Fixes the issue where if you don't have any transformation functions within your `template`, your commit message will be blank.
+
 ## [2.3.0] - 2023-12-25
 
 ### Added
