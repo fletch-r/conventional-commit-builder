@@ -1,22 +1,22 @@
-<img src="assets/SimpleCommitBanner.png" alt="simple commit" width="75%">
+<img src="assets/CCB.png" alt="Conventional Commit Builder" width="80%">
 
-### Simple Commit is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages
+### Conventional Commit Builder is a VSCode extension that simplifies the commit process for developers. It provides an easy-to-use interface for writing commit messages and includes some useful features to help ensure consistent and meaningful commit messages
 
 ## Features
 
 - Provides simple input boxes or selection boxes for writing commit messages.
-- If you're committing without having any changes staged. Simple Commit will first prompt you to select what file(s) you wish to stage.
+- If you're committing without having any changes staged. Conventional Commit Builder will first prompt you to select what file(s) you wish to stage.
 - Automatically detects and suggests issue numbers from your current branch.
 - Supports common commit message formats, such as the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 - Supports [Gitmoji](https://github.com/carloscuesta/gitmoji). Add an emoji to your commit message for easy and quick identification of the commit type.
 
 ## Usage
 
-To use Simple Commit, either:
+To use Conventional Commit Builder, either:
 
-1. Start Simple Commit:
-    - Click the Simple Commit icon in the Source Control tab which is usually to the right of the refresh icon.
-    - Open the command palette in VSCode (usually with `Ctrl + Shift + P` or `Cmd + Shift + P`), type "Simple Commit" and select the appropriate command.
+1. Start Conventional Commit Builder:
+    - Click the Conventional Commit Builder icon in the Source Control tab which is usually to the right of the refresh icon.
+    - Open the command palette in VSCode (usually with `Ctrl + Shift + P` or `Cmd + Shift + P`), type "Conventional Commit Builder" and select the appropriate command.
 
     If you have a custom template in your settings the following steps may be out of order.
 
@@ -36,7 +36,7 @@ To use Simple Commit, either:
     - Choose an emoji to appear in your commit message. The options will appear with the emoji and a description of what the emoji represents. This allows for quick and easy identification of what the particular commit message was about without having to read the message for context.
 
 6. Reference:
-    - Simple Commit should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `simpleCommit.referenceRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
+    - Conventional Commit Builder should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `simpleCommit.referenceRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
 
 7. Description:
     - This should be a short description of what changes you have made and are committing.
@@ -51,16 +51,16 @@ You can also use the enter key to quickly skip through the available suggestions
 
 ## Configuration
 
-Simple Commit can be configured through VSCode settings. To access the settings, go to "File" > "Preferences" > "Settings" or use the keyboard shortcut `Ctrl + ,` or `Cmd + ,`.
+Conventional Commit Builder can be configured through VSCode settings. To access the settings, go to "File" > "Preferences" > "Settings" or use the keyboard shortcut `Ctrl + ,` or `Cmd + ,`.
 
-> **Simple Commit** extension settings start with `simpleCommit.`
+> **Conventional Commit Builder** extension settings start with `simpleCommit.`
 
 Here are some of the available configuration options:
 
 |Setting|Type|Default|Description|
 |-|-|-|-|
 |scopes|`string[]`|`[]`|Saved scopes of previous commits.|
-|referenceRegex|`string`|`"(?!.*\/)([^\\d]*)(\\d+)"`|Add a custom regex if the default regex for Simple Commit doesn't automatically detect your issue number.|
+|referenceRegex|`string`|`"(?!.*\/)([^\\d]*)(\\d+)"`|Add a custom regex if the default regex for Conventional Commit Builder doesn't automatically detect your issue number.|
 |template|`string`|`"<type><scope>: <emoji> <reference> - <description>\n\n<body>\n\n<footer>"`|The template for your commit message. You can customize your commit template to allow for your preferred commit message structure.|
 |newLine|`string`|`"\\n"`|The characters entered here will be replaced with a new line within the commit message. This only applies to the Description, Body and Footer prompts.
 |emojiFilter|`"code" \| "description"`|`code`|You can set the `emojiFilter` to either `"code" | "description"` and this will let you filter the list of emojis in the emoji prompt by its code or description depending on what you choose.
@@ -81,7 +81,7 @@ Here are some of the available configuration options:
 
 ## Text Transformation Functions
 
-Text Transformation Functions (TTF's) allows Simple Commit to manipulate the text entered saving you time or making things not previously possible through just the prompt textbox, possible.
+Text Transformation Functions (TTF's) allows Conventional Commit Builder to manipulate the text entered saving you time or making things not previously possible through just the prompt textbox, possible.
 
 |Function|Effect|
 |-|-|
@@ -90,8 +90,8 @@ Text Transformation Functions (TTF's) allows Simple Commit to manipulate the tex
 
 ## Contributing
 
-If you would like to contribute to Simple Commit, please fork the repository and submit a pull request. Contributions are always welcome!
+If you would like to contribute to Conventional Commit Builder, please fork the repository and submit a pull request. Contributions are always welcome!
 
 ## License
 
-Simple Commit is licensed under the MIT License.
+Conventional Commit Builder is licensed under the MIT License.

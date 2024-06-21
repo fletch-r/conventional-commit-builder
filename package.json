@@ -1,9 +1,9 @@
 {
-  "name": "simple-commit",
+  "name": "conventional-commit-builder",
   "icon": "assets/icon.png",
-  "displayName": "Simple Commit",
-  "description": "Simple Commit helps you write and format your commit messages.",
-  "publisher": "0xATHERIS",
+  "displayName": "Conventional Commit Builder",
+  "description": "CCB helps you write and format your commit messages whilst easily following the Conventional Commits standard.",
+  "publisher": "fletch-r",
   "author": "fletch-r",
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
     "commands": [
       {
         "command": "simple-commit.commit",
-        "title": "Simple Commit: Commit staged files.",
+        "title": "Conventional Commit Builder: Commit staged files.",
         "icon": {
           "dark": "./assets/simple-commit-dark.svg",
           "light": "./assets/simple-commit-light.svg"
@@ -45,7 +45,7 @@
       }
     ],
     "configuration": {
-      "title": "Simple Commit",
+      "title": "Conventional Commit Builder",
       "properties": {
         "simpleCommit.scopes": {
           "type": "array",

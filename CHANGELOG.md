@@ -75,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [#11](https://github.com/fletch-r/simple-commit/pull/12) - [`41c7afc`](https://github.com/fletch-r/simple-commit/pull/12/commits/41c7afcc2658494c8b456f39bf8e9daf6b8fff34) If you haven't staged any changes a prompt will ask you to select files to stage. Before Simple Commit asks you for your commit details it will ask you to chose changes to stage then once you have chosen it will continue with the rest of the prompts.
+- [#11](https://github.com/fletch-r/simple-commit/pull/12) - [`41c7afc`](https://github.com/fletch-r/simple-commit/pull/12/commits/41c7afcc2658494c8b456f39bf8e9daf6b8fff34) If you haven't staged any changes a prompt will ask you to select files to stage. Before Conventional Commit Builder asks you for your commit details it will ask you to chose changes to stage then once you have chosen it will continue with the rest of the prompts.
 
 ## [1.0.1](https://github.com/fletch-r/simple-commit/releases/tag/v1.0.1) - 2023-04-06
 
@@ -116,7 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - gitmoji's
-- Simple Commit icon within the Source Control tab.
+- Conventional Commit Builder icon within the Source Control tab.
 
 ## [0.0.3] - 2023-03-31
 
