@@ -36,38 +36,38 @@
   "contributes": {
     "commands": [
       {
-        "command": "simple-commit.commit",
+        "command": "conventional-commit-builder.commit",
         "title": "Conventional Commit Builder: Commit staged files.",
         "icon": {
-          "dark": "./assets/simple-commit-dark.svg",
-          "light": "./assets/simple-commit-light.svg"
+          "dark": "./assets/conventional-commit-builder-dark.svg",
+          "light": "./assets/conventional-commit-builder-light.svg"
         }
       }
     ],
     "configuration": {
       "title": "Conventional Commit Builder",
       "properties": {
-        "simpleCommit.scopes": {
+        "conventionalCommitBuilder.scopes": {
           "type": "array",
           "default": [],
           "description": "Scopes that will appear as options in the scopes prompt."
         },
-        "simpleCommit.referenceRegex": {
+        "conventionalCommitBuilder.referenceRegex": {
           "type": "string",
           "default": "(?!.*\/)([^\\d]*)(\\d+)",
           "description": "RegEx used to get the reference number from branch name."
         },
-        "simpleCommit.template": {
+        "conventionalCommitBuilder.template": {
           "type": "string",
           "default": "<type><scope>: <emoji> <reference> - <description>\\n\\n<body>\\n\\n<footer>",
           "description": "The format of your commit message."
         },
-        "simpleCommit.newLine": {
+        "conventionalCommitBuilder.newLine": {
           "type": "string",
           "default": "\\\\n",
           "description": "The characters entered here will be replaced with a new line within the commit message.\nThis only applies to the Description, Body and Footer prompts.\nIf editing in workspace settings, you will need to enter an escape character (\\), if through user settings then VSCode does it automatically."
         },
-        "simpleCommit.emojiFilter": {
+        "conventionalCommitBuilder.emojiFilter": {
           "type": "string",
           "default": "code",
           "enum": [
@@ -80,32 +80,32 @@
           ],
           "description": "By what attribute you filter the emoji list."
         },
-        "simpleCommit.showCommit": {
+        "conventionalCommitBuilder.showCommit": {
           "type": "boolean",
           "default": false,
           "description": "Show your commit message within the Source Control tab."
         },
-        "simpleCommit.autoCommit": {
+        "conventionalCommitBuilder.autoCommit": {
           "type": "boolean",
           "default": true,
           "description": "Automatically commit your message when finished answering prompts."
         },
-        "simpleCommit.disableEmoji": {
+        "conventionalCommitBuilder.disableEmoji": {
           "type": "boolean",
           "default": false,
           "description": "Disable the emoji prompt and it appearing in commit messages."
         },
-        "simpleCommit.disableReference": {
+        "conventionalCommitBuilder.disableReference": {
           "type": "boolean",
           "default": false,
           "description": "Disable the reference prompt and it appearing in commit messages."
         },
-        "simpleCommit.disableBody": {
+        "conventionalCommitBuilder.disableBody": {
           "type": "boolean",
           "default": false,
           "description": "Disable the body prompt and it appearing in commit messages."
         },
-        "simpleCommit.disableFooter": {
+        "conventionalCommitBuilder.disableFooter": {
           "type": "boolean",
           "default": false,
           "description": "Disable the footer prompt and it appearing in commit messages."
@@ -116,7 +116,7 @@
       "scm/title": [
         {
           "when": "scmProvider == git",
-          "command": "simple-commit.commit",
+          "command": "conventional-commit-builder.commit",
           "group": "navigation"
         }
       ]

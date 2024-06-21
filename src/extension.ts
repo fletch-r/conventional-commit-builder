@@ -20,9 +20,9 @@ type RepoCommitError = {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand('simple-commit.commit', async () => {
+	const disposable = vscode.commands.registerCommand('conventional-commit-builder.commit', async () => {
 		// === INITIATE CONFIG ===
-		const workspace_config = vscode.workspace.getConfiguration('simpleCommit');
+		const workspace_config = vscode.workspace.getConfiguration('conventionalCommitBuilder');
 
 		// === WORKSPACE EXTENSION VALUES ===
 		const workspace_commit_template = workspace_config.get<string>('template');

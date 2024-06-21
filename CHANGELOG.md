@@ -27,31 +27,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **2023-09-14** - [#34](https://github.com/fletch-r/simple-commit/pull/34) - [`1271c25`](https://github.com/fletch-r/simple-commit/pull/34/commits/1271c2595d7a96467d53937b60628894d3a26eec) User can change what they deem to be a new line within the template. This allows for custom new line, by default `\n` in the template will be replaced with a new line. The user can set this in their `settings.json` like so, `"simpleCommit.newLine": "CustomNewLine"`, this will replace the any `CustomNewLine` within the message string with a new line.
+- **2023-09-14** - [#34](https://github.com/fletch-r/simple-commit/pull/34) - [`1271c25`](https://github.com/fletch-r/simple-commit/pull/34/commits/1271c2595d7a96467d53937b60628894d3a26eec) User can change what they deem to be a new line within the template. This allows for custom new line, by default `\n` in the template will be replaced with a new line. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.newLine": "CustomNewLine"`, this will replace the any `CustomNewLine` within the message string with a new line.
 
-- **2023-08-20** - [#32](https://github.com/fletch-r/simple-commit/pull/32) - [`c77e5e5`](https://github.com/fletch-r/simple-commit/pull/32/commits/c77e5e50b841eb3862779a74591922b4e3cb8450) When this is set to false, the commit message create won't get automatically committed. This, when paired with `showCommit`, allows the user to double check their message before committing. The user can set this in their `settings.json` like so, `"simpleCommit.autoCommit": false`.
+- **2023-08-20** - [#32](https://github.com/fletch-r/simple-commit/pull/32) - [`c77e5e5`](https://github.com/fletch-r/simple-commit/pull/32/commits/c77e5e50b841eb3862779a74591922b4e3cb8450) When this is set to false, the commit message create won't get automatically committed. This, when paired with `showCommit`, allows the user to double check their message before committing. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.autoCommit": false`.
 
-- **2023-08-20** - [#31](https://github.com/fletch-r/simple-commit/pull/31) - [`fadfef1`](https://github.com/fletch-r/simple-commit/pull/31/commits/fadfef15f15394315d37e78a44d1d3f305d1cd69) This change shows the commit message created by the prompts in the SCM tab's input box. The user can set this in their `settings.json` like so, `"simpleCommit.showCommit": true`.
+- **2023-08-20** - [#31](https://github.com/fletch-r/simple-commit/pull/31) - [`fadfef1`](https://github.com/fletch-r/simple-commit/pull/31/commits/fadfef15f15394315d37e78a44d1d3f305d1cd69) This change shows the commit message created by the prompts in the SCM tab's input box. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.showCommit": true`.
 
-- **2023-08-13** - [#30](https://github.com/fletch-r/simple-commit/pull/30) - [`9ae6c15`](https://github.com/fletch-r/simple-commit/pull/30/commits/9ae6c15427e00d603829c492e154adce84265135) The user now has the option to hide any prompt. The user can set this in their `settings.json` like so, `"simpleCommit.disableDescription": true`, this will stop the Description prompt from showing.
+- **2023-08-13** - [#30](https://github.com/fletch-r/simple-commit/pull/30) - [`9ae6c15`](https://github.com/fletch-r/simple-commit/pull/30/commits/9ae6c15427e00d603829c492e154adce84265135) The user now has the option to hide any prompt. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.disableDescription": true`, this will stop the Description prompt from showing.
 
 ## [2.1.0] - 2023-08-11
 
 ### Added
 
-- **2023-08-11** - [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"simpleCommit.emojiFilter": "code"`.
+- **2023-08-11** - [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.emojiFilter": "code"`.
 
 ## [2.0.0] - 2023-08-10
 
 ### Added
 
-- [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) Issue has been renamed to Reference. This will cause `simpleCommit.template` and `simpleCommit.issueRegex` to break. For `simpleCommit.template`, `<number>` will need renaming to `<reference>`. For `simpleCommit.issueRegex`, it will need to be renamed to `simpleCommit.referenceRegex`.
+- [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) Issue has been renamed to Reference. This will cause `conventionalCommitBuilder.template` and `conventionalCommitBuilder.issueRegex` to break. For `conventionalCommitBuilder.template`, `<number>` will need renaming to `<reference>`. For `conventionalCommitBuilder.issueRegex`, it will need to be renamed to `conventionalCommitBuilder.referenceRegex`.
 
 ## [1.5.0] - 2023-08-09
 
 ### Added
 
-- [#23](https://github.com/fletch-r/simple-commit/pull/23) - [`e957a26`](https://github.com/fletch-r/simple-commit/pull/23/commits/e957a26b321bf3925b4e8f996e5c0a6abdd37518) The user can now add `simpleCommit.disableEmoji` to their settings file and the emoji prompt will be skipped. This means that the final commit message won't include an emoji.
+- [#23](https://github.com/fletch-r/simple-commit/pull/23) - [`e957a26`](https://github.com/fletch-r/simple-commit/pull/23/commits/e957a26b321bf3925b4e8f996e5c0a6abdd37518) The user can now add `conventionalCommitBuilder.disableEmoji` to their settings file and the emoji prompt will be skipped. This means that the final commit message won't include an emoji.
 
 ## [1.4.0](https://github.com/fletch-r/simple-commit/releases/tag/v1.4.0) - 2023-07-19
 
@@ -69,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [#13](https://github.com/fletch-r/simple-commit/pull/13) - [`92983e9`](https://github.com/fletch-r/simple-commit/pull/13/commits/92983e97f6b1372563320578286eb178f9b03d5f) If the default RegEx doesn't detect your issue then you can define a custom RegEx in the `settings.json` called `"simpleCommit.issueRegex"`. Your custom RegEx will then the be used instead of the default one to detect your issue/ticket number. NOTE: If you want to include a backslash `\`, in your RegEx, for example: `\w+`, then you will need to escape the backslash as it is an escape character itself it so wont make it through the conversion to RegEx. For example, `\w+` should be typed as `\\w+`.
+- [#13](https://github.com/fletch-r/simple-commit/pull/13) - [`92983e9`](https://github.com/fletch-r/simple-commit/pull/13/commits/92983e97f6b1372563320578286eb178f9b03d5f) If the default RegEx doesn't detect your issue then you can define a custom RegEx in the `settings.json` called `"conventionalCommitBuilder.issueRegex"`. Your custom RegEx will then the be used instead of the default one to detect your issue/ticket number. NOTE: If you want to include a backslash `\`, in your RegEx, for example: `\w+`, then you will need to escape the backslash as it is an escape character itself it so wont make it through the conversion to RegEx. For example, `\w+` should be typed as `\\w+`.
 
 ## [1.1.0](https://github.com/fletch-r/simple-commit/releases/tag/v1.1.0) - 2023-04-06
 
@@ -86,13 +86,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [#10](https://github.com/fletch-r/simple-commit/commit/54f3315b8c28cdd7788a7d10c88b2e5cbd16d077) - [`d5dc03a`](https://github.com/fletch-r/simple-commit/commit/d5dc03a2e08fcb6501da63e24c78d6a5e0b91088) The back button on prompts will take you to the previous step. The step order is now determined on your template. For example, the default template is `<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>` so you will see the `<type>` prompt, then the `<scope>` prompt and so on, but if your `simpleCommit.template` was set to `<emoji> <number> <type><scope>...` then the first prompt will be the `<emoji>`, second will be `<number>` prompt and so.
+- [#10](https://github.com/fletch-r/simple-commit/commit/54f3315b8c28cdd7788a7d10c88b2e5cbd16d077) - [`d5dc03a`](https://github.com/fletch-r/simple-commit/commit/d5dc03a2e08fcb6501da63e24c78d6a5e0b91088) The back button on prompts will take you to the previous step. The step order is now determined on your template. For example, the default template is `<type><scope>: <emoji> <number> - <description>\n\n<body>\n\n<footer>` so you will see the `<type>` prompt, then the `<scope>` prompt and so on, but if your `conventionalCommitBuilder.template` was set to `<emoji> <number> <type><scope>...` then the first prompt will be the `<emoji>`, second will be `<number>` prompt and so.
 
 ## [0.4.0](https://github.com/fletch-r/simple-commit/releases/tag/v0.4.0) - 2023-04-05
 
 ### Changed
 
-- [`67d1818`](https://github.com/fletch-r/simple-commit/commit/67d18181269565ed4d5139cb7ba33c1207897e61) Renamed schema to template. This change means that `simpleCommit.schema` will have to be renamed to `simpleCommit.template` in your `settings.json` file.
+- [`67d1818`](https://github.com/fletch-r/simple-commit/commit/67d18181269565ed4d5139cb7ba33c1207897e61) Renamed schema to template. This change means that `conventionalCommitBuilder.schema` will have to be renamed to `conventionalCommitBuilder.template` in your `settings.json` file.
 
 ## [0.3.0](https://github.com/fletch-r/simple-commit/releases/tag/v0.3.0) - 2023-04-04
 

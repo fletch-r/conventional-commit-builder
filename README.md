@@ -36,7 +36,7 @@ To use Conventional Commit Builder, either:
     - Choose an emoji to appear in your commit message. The options will appear with the emoji and a description of what the emoji represents. This allows for quick and easy identification of what the particular commit message was about without having to read the message for context.
 
 6. Reference:
-    - Conventional Commit Builder should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `simpleCommit.referenceRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
+    - Conventional Commit Builder should auto-detect your issue/ticket number and pre-populate the input box with the detected number. If your desired number doesn't automatically appear in the prompt please enter your desired issue/ticket number message or modify `conventionalCommitBuilder.referenceRegex` in your `settings.json` with a custom regex that you know detects your issue/ticket number.
 
 7. Description:
     - This should be a short description of what changes you have made and are committing.
@@ -53,7 +53,7 @@ You can also use the enter key to quickly skip through the available suggestions
 
 Conventional Commit Builder can be configured through VSCode settings. To access the settings, go to "File" > "Preferences" > "Settings" or use the keyboard shortcut `Ctrl + ,` or `Cmd + ,`.
 
-> **Conventional Commit Builder** extension settings start with `simpleCommit.`
+> **Conventional Commit Builder** extension settings start with `conventionalCommitBuilder.`
 
 Here are some of the available configuration options:
 
