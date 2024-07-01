@@ -14,7 +14,7 @@
     "url": "https://github.com/fletch-r/conventional-commit-builder/issues"
   },
   "homepage": "https://github.com/fletch-r/conventional-commit-builder",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "engines": {
     "vscode": "^1.76.0"
   },
