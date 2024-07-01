@@ -5,25 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.2] - 2024-06-21
+## [2.5.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.5.0) - 2024-07-01
+
+### Added
+
+- 2024-07-01 - [5725c1b](https://github.com/fletch-r/simple-commit/commit/5725c1ba1d01c67b3439934fd5c6c12d34208ee0) User can add their own custom types which will then appear in the types prompt.
+
+## [2.4.2](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.2) - 2024-06-21
 
 ### Added
 
 - 2024-06-21 - [e2c93be](https://github.com/fletch-r/simple-commit/commit/e2c93be00c517fec429ded4666be0b266862f755) Updated extension commands to make the name of the extension.
 
-## [2.4.1] - 2024-06-21
+## [2.4.1](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.1) - 2024-06-21
 
 ### Added
 
 - 2024-06-21 - [bd3b20d](https://github.com/fletch-r/simple-commit/commit/bd3b20d46fcf2f6413f5658ea0be701556d8efbb) Updated `README.md`.
 
-## [2.4.0] - 2024-06-21
+## [2.4.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.0) - 2024-06-21
 
 ### Fixed
 
 - 2024-06-21 - [[#42](https://github.com/fletch-r/simple-commit/issues/42)] - [068dd71](https://github.com/fletch-r/simple-commit/commit/068dd71eed814a2f6e5364d26dbcdf2f34d440ed) Fixes the issue where if you don't have any transformation functions within your `template`, your commit message will be blank.
 
-## [2.3.0] - 2023-12-25
+## [2.3.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.3.0) - 2023-12-25
 
 ### Added
 
@@ -35,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **2023-12-22** - [#39](https://github.com/fletch-r/simple-commit/pull/39) - [`a38f757`](https://github.com/fletch-r/simple-commit/pull/39/commits/a38f75734b592ddd61e44ab56a054c15ba76255f) Fixed issue where only the first `newLine` value was being converted to a new line and didn't convert `newLine`'s that weren't surrounded by spaces.
 
-## [2.2.0] - 2023-12-22
+## [2.2.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.2.0) - 2023-12-22
 
 ### Added
 
@@ -47,19 +53,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **2023-08-13** - [#30](https://github.com/fletch-r/simple-commit/pull/30) - [`9ae6c15`](https://github.com/fletch-r/simple-commit/pull/30/commits/9ae6c15427e00d603829c492e154adce84265135) The user now has the option to hide any prompt. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.disableDescription": true`, this will stop the Description prompt from showing.
 
-## [2.1.0] - 2023-08-11
+## [2.1.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.1.0) - 2023-08-11
 
 ### Added
 
 - **2023-08-11** - [#29](https://github.com/fletch-r/simple-commit/pull/29) - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) The user can now choose whether they want to filter the list of emojis using the emojis description or code. The user can set this in their `settings.json` like so, `"conventionalCommitBuilder.emojiFilter": "code"`.
 
-## [2.0.0] - 2023-08-10
+## [2.0.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.0.0) - 2023-08-10
 
 ### Added
 
 - [`bcbc35f`](https://github.com/fletch-r/simple-commit/commit/bcbc35f79236124d82b4997424bad0e60c7bfb35) Issue has been renamed to Reference. This will cause `conventionalCommitBuilder.template` and `conventionalCommitBuilder.issueRegex` to break. For `conventionalCommitBuilder.template`, `<number>` will need renaming to `<reference>`. For `conventionalCommitBuilder.issueRegex`, it will need to be renamed to `conventionalCommitBuilder.referenceRegex`.
 
-## [1.5.0] - 2023-08-09
+## [1.5.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v1.5.0) - 2023-08-09
 
 ### Added
 

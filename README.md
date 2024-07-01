@@ -70,6 +70,7 @@ Here are some of the available configuration options:
 |disableReference|`boolean`|`false`| If you do not wish to have the reference prompt show you can set this to true. The reference prompt will be skipped and your commit message will not contain a reference.
 |disableBody|`boolean`|`false`| If you do not wish to have the body prompt show you can set this to true. The body prompt will be skipped and your commit message will not contain a body.
 |disableFooter|`boolean`|`false`| If you do not wish to have the footer prompt show you can set this to true. The footer prompt will be skipped and your commit message will not contain a footer.
+|customTypes|`[{ "label": "", "description": "", "detail": "" }]`|`[]`|Add your own types which will then appear in the types prompt.
 
 - `<type>` - This will be replaced by the value you choose from the Type prompt. Examples, fix, feat, style.
 - `<scope>` - This will be replaced by the Scope prompt. Your scope will be incased in ().
