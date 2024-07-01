@@ -38,7 +38,7 @@ export default async function buildCommitMessage(
         const step = step_order[current_step];
         switch (step) {
             case '<type>':
-                await typeQuickPick(message_values.type)
+                await typeQuickPick(message_values.type, workspace_config)
                     .then((value: string) => {
                         message_values.type = value;
                         current_step++;

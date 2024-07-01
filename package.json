@@ -109,6 +109,20 @@
           "type": "boolean",
           "default": false,
           "description": "Disable the footer prompt and it appearing in commit messages."
+        },
+        "conventionalCommitBuilder.customTypes": {
+          "type": "array",
+          "default": [],
+          "description": "Add your own types to the type list.",
+          "examples": [
+            [
+              {
+                "label": "",
+                "description": "",
+                "detail": ""
+              }
+            ]
+          ]
         }
       }
     },
