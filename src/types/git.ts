@@ -17,6 +17,9 @@ export type Repositories = {
     inputBox: {
         value: string;
     };
+    rootUri: {
+        path: string;
+    }
 };
 
 export type GetAPI = {

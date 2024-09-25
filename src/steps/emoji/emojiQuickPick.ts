@@ -1,6 +1,7 @@
 import { WorkspaceConfiguration } from 'vscode';
 
 import createQuickPick from '../../createQuickPick';
+import { getConfiguration } from '../../getConfiguration';
 const gitmojis: {
     $schema: string,
     gitmojis: {
@@ -12,8 +13,9 @@ const gitmojis: {
     }[];
 } = require('../../vendors/gitmojis.json');
 
-export default async function emojiQuickPick(exitingEmoji: string, workspace_config: WorkspaceConfiguration): Promise<string> {
-    const workspace_commit_emojiFilter = workspace_config.get<"description" | "code">('emojiFilter');
+export default async function emojiQuickPick(exitingEmoji: string): Promise<string> {
+    const config = await getConfiguration();
+    const workspace_commit_emojiFilter = config.get('emojiFilter');
 
     const emojis = gitmojis.gitmojis;
 

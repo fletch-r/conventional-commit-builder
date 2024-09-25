@@ -4,6 +4,7 @@ import initiateGit from './initiateGit';
 import stageFiles from './steps/stage_files/stageFiles';
 import buildCommitMessage from './buildCommitMessage';
 import { TransformText } from './utils/TransformText';
+import { getConfiguration } from './getConfiguration';
 
 // Example commit
 /**
@@ -22,10 +23,7 @@ type RepoCommitError = {
 export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand('conventional-commit-builder.commit', async () => {
 		// === INITIATE CONFIG ===
-		const workspace_config = vscode.workspace.getConfiguration('conventionalCommitBuilder');
-
-		// === WORKSPACE EXTENSION VALUES ===
-		const workspace_commit_template = workspace_config.get<string>('template');
+		const config = await getConfiguration();
 
 		// === INITIATE GIT ===
 		const repo = initiateGit();
@@ -43,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		// === STEP ORDER ===
+		const workspace_commit_template = config.get('template');
 		let chosen_commit_template = workspace_commit_template ? workspace_commit_template : DEFAULT_COMMIT_TEMPLATE;
 		const steps = [...chosen_commit_template.matchAll(TEMPLATE_REGEX)];
 		const step_order = steps.map((arr) => arr[0]);
@@ -66,10 +65,10 @@ export function activate(context: vscode.ExtensionContext) {
 			description,
 			body,
 			footer
-		} = await buildCommitMessage(step_order, steps_to_transform, workspace_config, repo);
+		} = await buildCommitMessage(step_order, steps_to_transform, repo);
 
 		// Replaces any \n (by default) the user enters with escape character so new line is applied in the commit message.
-		const workspace_new_line = workspace_config.get<string>('newLine');
+		const workspace_new_line = config.get('newLine');
 		const chosen_new_line = workspace_new_line ? workspace_new_line : DEFAULT_NEWLINE;
 
 		const newLineRegex = new RegExp(chosen_new_line, 'gi');
@@ -93,17 +92,17 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log('Commit Message:', `\n\n${commit_message}`);
 
 		// === SHOW COMMIT MESSAGE IN SCM ===
-		const workspace_auto_commit = workspace_config.get<boolean>('autoCommit');
-		const workspace_show_commit = workspace_config.get<boolean>('showCommit');
+		const workspace_auto_commit = config.get('autoCommit');
+		const workspace_show_commit = config.get('showCommit');
 
 		// if autoCommit is true then the commit message in the SCM will disappear straight away so no point doing it.
-		if (workspace_show_commit && !workspace_auto_commit) {
+		if (workspace_show_commit || workspace_auto_commit === false) {
 			await vscode.commands.executeCommand('workbench.view.scm');
 			repo.inputBox.value = commit_message;
 		}
 
 		// === COMMIT ===
-		if (workspace_auto_commit) {
+		if (workspace_auto_commit || workspace_auto_commit == null) {
 			repo.commit(commit_message)
 				.then(() => vscode.window.showInformationMessage(commit_message))
 				.catch((err: RepoCommitError) => {

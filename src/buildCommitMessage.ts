@@ -1,4 +1,3 @@
-import { WorkspaceConfiguration } from 'vscode';
 import getReference from "./getReference";
 import bodyInputBox from "./steps/body/bodyInputBox";
 import descriptionInputBox from "./steps/description/descriptionInputBox";
@@ -9,19 +8,21 @@ import chosenScope from "./steps/scope/chosenScope";
 import typeQuickPick from "./steps/type/typeQuickPick";
 import { Repositories } from './types/git';
 import { TransformText } from './utils/TransformText';
+import { getConfiguration } from './getConfiguration';
 
 export default async function buildCommitMessage(
     step_order: string[],
     steps_to_transform: Map<string, string>,
-    workspace_config: WorkspaceConfiguration,
     repo: Repositories,
 ) {
-    const workspace_reference_regex = workspace_config.get<string>('referenceRegex');
+    const config = await getConfiguration();
 
-    const workspace_disable_emoji = workspace_config.get<boolean>('disableEmoji');
-    const workspace_disable_reference = workspace_config.get<boolean>('disableReference');
-    const workspace_disable_body = workspace_config.get<boolean>('disableBody');
-    const workspace_disable_footer = workspace_config.get<boolean>('disableFooter');
+    const workspace_reference_regex = config.get('referenceRegex');
+
+    const workspace_disable_emoji = config.get('disableEmoji');
+    const workspace_disable_reference = config.get('disableReference');
+    const workspace_disable_body = config.get('disableBody');
+    const workspace_disable_footer = config.get('disableFooter');
 
     let message_values = {
         type: '',
@@ -38,14 +39,14 @@ export default async function buildCommitMessage(
         const step = step_order[current_step];
         switch (step) {
             case '<type>':
-                await typeQuickPick(message_values.type, workspace_config)
+                await typeQuickPick(message_values.type)
                     .then((value: string) => {
                         message_values.type = value;
                         current_step++;
                     });
                 break;
             case '<scope>':
-                await chosenScope(workspace_config, message_values.scope)
+                await chosenScope(message_values.scope)
                     .then((value: string) => {
                         message_values.scope = value;
                         current_step++;
@@ -57,7 +58,7 @@ export default async function buildCommitMessage(
                     message_values.emoji = '';
                     current_step++;
                 } else {
-                    await emojiQuickPick(message_values.emoji, workspace_config)
+                    await emojiQuickPick(message_values.emoji)
                         .then((value) => {
                             message_values.emoji = value;
                             current_step++;
