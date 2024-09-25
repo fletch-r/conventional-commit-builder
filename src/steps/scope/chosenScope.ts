@@ -1,14 +1,15 @@
-import * as vscode from 'vscode';
+import { workspace, ConfigurationTarget } from 'vscode';
 import scopeQuickPick from './scopeQuickPick';
 import newScopeInputBox from './newScopeInputBox';
 import oneTimeScopeInputBox from './oneTimeScopeInputBox';
+import { getConfiguration } from '../../getConfiguration';
 
-export default async function chosenScope(
-    workspace_config: vscode.WorkspaceConfiguration,
-    existing_value: string
-): Promise<string> {
+export default async function chosenScope(existing_value: string): Promise<string> {
+    const workspace_config = workspace.getConfiguration('conventionalCommitBuilder');
+    const config = await getConfiguration();
+
     return new Promise((resolve, reject) => {
-        const config_scopes = workspace_config.get<string[]>('scopes');
+        const config_scopes = config.get('scopes');
         const saved_scopes = config_scopes ?? [];
 
         scopeQuickPick(saved_scopes, existing_value)
@@ -18,7 +19,7 @@ export default async function chosenScope(
                 if (scope_type === 'New Scope') {
                     const new_scope = await newScopeInputBox(existing_value);
                     if (new_scope) {
-                        await workspace_config.update('scopes', [...saved_scopes, new_scope], vscode.ConfigurationTarget.Workspace);
+                        await workspace_config.update('scopes', [...saved_scopes, new_scope], ConfigurationTarget.Workspace);
                         resolve(new_scope);
                     } else {
                         resolve('');

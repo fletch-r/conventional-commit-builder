@@ -1,5 +1,6 @@
 import { WorkspaceConfiguration } from 'vscode';
 import createQuickPick, { QuickPickItemsType } from '../../createQuickPick';
+import { getConfiguration } from '../../getConfiguration';
 
 type NonNullableDetailType = Omit<QuickPickItemsType, 'detail'> & {
 	detail: string;
@@ -15,10 +16,7 @@ function isType(value: any): value is NonNullableDetailType {
 	);
 }
 
-export default async function typeQuickPick(
-	existing_value: string,
-	workspace_config: WorkspaceConfiguration,
-): Promise<string> {
+export default async function typeQuickPick(existing_value: string): Promise<string> {
 	const available_types = [
 		{ label: 'feat', description: 'Feature', detail: "A new feature" },
 		{ label: 'fix', description: 'Bug Fix', detail: 'A bug fix' },
@@ -30,7 +28,9 @@ export default async function typeQuickPick(
 		{ label: 'build', description: 'Build', detail: 'Changes that affect the build system or dependencies. e.g. NPM' },
 	];
 
-	const workspace_custom_types = workspace_config.get<NonNullableDetailType[]>('customTypes') || [];
+	const config = await getConfiguration();
+
+	const workspace_custom_types = config.get('customTypes') || [];
 
 	if (workspace_custom_types.length > 0) {
 		for (let i = 0; i < workspace_custom_types.length; i++) {

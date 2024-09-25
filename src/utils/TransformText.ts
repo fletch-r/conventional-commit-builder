@@ -33,25 +33,19 @@ export class TransformText {
 
     steps(commit_message_template: string) {
         const TransformTextMethods = Object.getOwnPropertyNames(TransformText.prototype) as TransformTextMethods[];
-        const usedFunctions = TransformTextMethods.filter((method: TransformTextMethods) => commit_message_template.includes(method));
-
         const steps_to_transform = new Map<PromptToTransform, TransformFunctionName>();
-
         let cleaned_commit_template = commit_message_template;
 
-        if (usedFunctions.length > 0) {
-            usedFunctions.forEach((func) => {
-                const prompt = commit_message_template.split(`${func}(`)[1].split(')')[0];
+        TransformTextMethods.forEach((func) => {
+            const funcPattern = new RegExp(`${func}\\(([^)]+)\\)`, 'g');
+            let match;
+
+            while ((match = funcPattern.exec(commit_message_template)) !== null) {
+                const [fullMatch, prompt] = match;
                 steps_to_transform.set(prompt, func);
-    
-                // Remove functions that wrap prompts from commit message template
-                commit_message_template.replace(`${func}(`, '');
-                const startOfPromptWord = commit_message_template.indexOf(`${func}(`) + (func.length + 1);
-                const endOfPromptWord = commit_message_template.indexOf(')', startOfPromptWord);
-                const newMessage = replaceAt(commit_message_template, endOfPromptWord, '');
-                cleaned_commit_template = newMessage.replace(`${func}(`, '');
-            });
-        }
+                cleaned_commit_template = cleaned_commit_template.replace(fullMatch, prompt);
+            }
+        });
 
         return {
             steps_to_transform,
