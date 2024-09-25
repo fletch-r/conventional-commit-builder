@@ -9,6 +9,7 @@
 - Automatically detects and suggests issue numbers from your current branch.
 - Supports common commit message formats, such as the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 - Supports [Gitmoji](https://github.com/carloscuesta/gitmoji). Add an emoji to your commit message for easy and quick identification of the commit type.
+- Configuration file support. Just add the file `.commitbuilderrc.json` to your project to customize the Conventional Commit Builder settings without having to edit your `settings.json` file. Allowing for each project to have their own custom commit message config. Configuration settings and values can be found below.
 
 ## Usage
 
