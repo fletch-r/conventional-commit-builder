@@ -123,6 +123,11 @@
               }
             ]
           ]
+        },
+        "conventionalCommitBuilder.commonCommits": {
+          "type": "array",
+          "default": [],
+          "description": "Add your common commit messages to the list."
         }
       }
     },
