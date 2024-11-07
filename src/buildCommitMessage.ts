@@ -52,6 +52,16 @@ export default async function buildCommitMessage(
     chosen_common_commit = await commonCommitQuickPick();
 
     if (chosen_common_commit !== undefined) {
+        if (step_order.includes("<reference>")) {
+            // As the reference is dynamic we need to display the input box to the user
+            // so it gets added to the commit message
+            const head = repo.state.HEAD;
+            const reference = getReference(workspace_reference_regex, head);
+            await referenceInputBox(reference, message_values.reference)
+                .then((value: string) => {
+                    message_values.reference = value;
+                });
+        }
         message_values = {
           ...message_values, // Keep existing message_values as base
           ...chosen_common_commit, // Override with any matching fields from chosen_common_commit
