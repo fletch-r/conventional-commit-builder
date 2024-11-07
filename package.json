@@ -14,7 +14,7 @@
     "url": "https://github.com/fletch-r/conventional-commit-builder/issues"
   },
   "homepage": "https://github.com/fletch-r/conventional-commit-builder",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -151,7 +151,8 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "deploy": "node gitmoji.js && vsce package && vsce publish"
+    "deploy": "node gitmoji.js && vsce package && vsce publish",
+    "newPAT": "vsce login fletch-r"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
