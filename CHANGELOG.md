@@ -5,41 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.1](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.7.1) - 2024-11-07
+
+### Fixed
+
+- **2024-11-07** - [[#51](https://github.com/fletch-r/conventional-commit-builder/pull/51)] - [be8ccfe](https://github.com/fletch-r/simple-commit/commit/be8ccfe5ddbae353bf3e4ab937fa5f86d25962d7) Fixed the issue when selecting a common commit the reference doesn't appear in the commit message. The reference prompt will now appear after selecting a common commit for you to double check that the auto-detected reference is correct before commiting.
+
 ## [2.7.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.7.0) - 2024-11-07
 
 ### Added
 
-- 2024-11-07 - [f51ccf9](https://github.com/fletch-r/simple-commit/commit/f51ccf9f52e6d460bd59e22f07203f3d008ba064) User can use the setting `commonCommits` to add an array of commonly used commit messages which will appear when running the extension.
+- **2024-11-07** - [[#50](https://github.com/fletch-r/conventional-commit-builder/pull/50)] - [f51ccf9](https://github.com/fletch-r/simple-commit/commit/f51ccf9f52e6d460bd59e22f07203f3d008ba064) User can use the setting `commonCommits` to add an array of commonly used commit messages which will appear when running the extension.
 
 ## [2.6.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.6.0) - 2024-09-25
 
 ### Added
 
-- 2024-09-25 - [1b5a208](https://github.com/fletch-r/simple-commit/commit/1b5a2085042db3658a91467b72ebe2e8b7b6cd54) User can add a config file to their project called `.commitbuilderrc.json` which will change their Conventional Commit Builder settings without having to set them in their user/vscode settings.
+- **2024-09-25** - [1b5a208](https://github.com/fletch-r/simple-commit/commit/1b5a2085042db3658a91467b72ebe2e8b7b6cd54) User can add a config file to their project called `.commitbuilderrc.json` which will change their Conventional Commit Builder settings without having to set them in their user/vscode settings.
 
 ## [2.5.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.5.0) - 2024-07-01
 
 ### Added
 
-- 2024-07-01 - [5725c1b](https://github.com/fletch-r/simple-commit/commit/5725c1ba1d01c67b3439934fd5c6c12d34208ee0) User can add their own custom types which will then appear in the types prompt.
+- **2024-07-01** - [5725c1b](https://github.com/fletch-r/simple-commit/commit/5725c1ba1d01c67b3439934fd5c6c12d34208ee0) User can add their own custom types which will then appear in the types prompt.
 
 ## [2.4.2](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.2) - 2024-06-21
 
 ### Added
 
-- 2024-06-21 - [e2c93be](https://github.com/fletch-r/simple-commit/commit/e2c93be00c517fec429ded4666be0b266862f755) Updated extension commands to make the name of the extension.
+- **2024-06-21** - [e2c93be](https://github.com/fletch-r/simple-commit/commit/e2c93be00c517fec429ded4666be0b266862f755) Updated extension commands to make the name of the extension.
 
 ## [2.4.1](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.1) - 2024-06-21
 
 ### Added
 
-- 2024-06-21 - [bd3b20d](https://github.com/fletch-r/simple-commit/commit/bd3b20d46fcf2f6413f5658ea0be701556d8efbb) Updated `README.md`.
+- **2024-06-21** - [bd3b20d](https://github.com/fletch-r/simple-commit/commit/bd3b20d46fcf2f6413f5658ea0be701556d8efbb) Updated `README.md`.
 
 ## [2.4.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.4.0) - 2024-06-21
 
 ### Fixed
 
-- 2024-06-21 - [[#42](https://github.com/fletch-r/simple-commit/issues/42)] - [068dd71](https://github.com/fletch-r/simple-commit/commit/068dd71eed814a2f6e5364d26dbcdf2f34d440ed) Fixes the issue where if you don't have any transformation functions within your `template`, your commit message will be blank.
+- **2024-06-21** - [[#42](https://github.com/fletch-r/simple-commit/issues/42)] - [068dd71](https://github.com/fletch-r/simple-commit/commit/068dd71eed814a2f6e5364d26dbcdf2f34d440ed) Fixes the issue where if you don't have any transformation functions within your `template`, your commit message will be blank.
 
 ## [2.3.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.3.0) - 2023-12-25
 
