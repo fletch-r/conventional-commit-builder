@@ -1,11 +1,13 @@
 import * as vscode from 'vscode';
 import { Writable } from './types/Writable';
 import { TOTAL_STEPS } from './constants';
+import { CommitMessageType } from './buildCommitMessage';
 
 export type QuickPickItemsType = {
 	label: string;
 	description: string;
 	detail?: string;
+	message?: CommitMessageType;
 };
 
 export default function createQuickPick(
@@ -51,6 +53,7 @@ export default function createQuickPick(
 		});
 		quickPick.onDidAccept(() => {
 			resolve(selected);
+			quickPick.dispose();
 		});
 
 
