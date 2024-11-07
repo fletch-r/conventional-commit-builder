@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.7.0) - 2024-11-07
+
+### Added
+
+- 2024-11-07 - [f51ccf9](https://github.com/fletch-r/simple-commit/commit/f51ccf9f52e6d460bd59e22f07203f3d008ba064) User can use the setting `commonCommits` to add an array of commonly used commit messages which will appear when running the extension.
+
 ## [2.6.0](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.6.0) - 2024-09-25
 
 ### Added
