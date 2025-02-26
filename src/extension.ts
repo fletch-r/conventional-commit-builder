@@ -106,7 +106,6 @@ export function activate(context: vscode.ExtensionContext) {
 			repo.commit(commit_message)
 				.then(async () => {
 					const postCommitCommand = vscode.workspace.getConfiguration('git').get('postCommitCommand');
-					console.log("postCommitCommand", postCommitCommand);
 					if (postCommitCommand === 'push') {
 						await vscode.commands.executeCommand('git.push');
 					}
