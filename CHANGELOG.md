@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.2](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.7.2) - 2024-11-07
+
+### Fixed
+
+- **2025-02-26** - [[#54](https://github.com/fletch-r/conventional-commit-builder/pull/54)] - [36fd37c](https://github.com/fletch-r/simple-commit/commit/36fd37c7976836adc998ad0c4b4dffabb50fc3d9) Fixed the issue where if the user had `get.postCommitCommand` set to `"push"` then VSCode didn't auto-push as expect. Conventional Commit Builder will now automatically push when it sees that the user has `get.postCommitCommand` set to `"push"`.
+
 ## [2.7.1](https://github.com/fletch-r/conventional-commit-builder/releases/tag/v2.7.1) - 2024-11-07
 
 ### Fixed
